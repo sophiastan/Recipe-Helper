@@ -17,7 +17,26 @@ const baseUrl = "http://www.recipepuppy.com/api";
 
 app.get('/getIngredients/:ingredients', async function (req, res) {
   const endpoint = "/?i=" + req.params.ingredients
+  console.log("ONLY INGREDIENTS")
   console.log("SERVER INGREDIENTS: ", req.params.ingredients);
+  const ingredients = await fetch(baseUrl + endpoint, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
+  });
+
+  const data = await ingredients.json();
+  console.log(data);
+  res.json(data);
+});
+
+app.get('/getIngredients/:ingredients/:recipe', async function (req, res) {
+  const endpoint = "/?i=" + req.params.ingredients + "&q=" + req.params.recipe
+  console.log("INGREDIENTS AND RECIPE")
+  console.log("SERVER INGREDIENTS: ", req.params.ingredients);
+  console.log("SERVER RECIPE: ", req.params.recipe);
   const ingredients = await fetch(baseUrl + endpoint, {
     headers: {
       Accept: 'application/json',
