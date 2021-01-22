@@ -7,7 +7,9 @@ class Home extends Component {
 
     this.state = {
       recipeService: new RecipeService(),
-      ingredients: ""
+      ingredients: "",
+      recipe: "",
+      addCount: 0
     }
   }
 
@@ -18,63 +20,91 @@ class Home extends Component {
       this.setState({
         recipes: ingredients
       })
-    }
-    
+    } 
   }
 
   onIngChange = (event) => {
     const val = event.target.value;
 
     this.setState({
-      ingredients: val
+      ingredients: this.state.ingredients + "," + val
     });
   }
 
-  submit = (ingredients) => {
+  onRecipeChange = (event) => {
+    const val = event.target.value;
+
+    this.setState({
+      recipe: val
+    });
+  }
+
+  handleAdd = () => {
+    if (this.state.addCount < 3) {
+      const newTextInputBox = document.createElement('input');
+      newTextInputBox.className = "ingredient-box";
+      newTextInputBox.onchange = this.onIngChange;
+      document.getElementById("newElementId").appendChild(newTextInputBox);
+    }
+
+    this.setState({
+      addCount: this.state.addCount + 1
+    })
+  }
+
+  submit = (ingredients, recipe) => {
     console.log("ingredients: ", ingredients);
     this.state.recipeService.getIngredients(ingredients);
+    this.state.recipeService.getIngredientsRecipe(ingredients, recipe);
   }
   
   render() {
     return (
       <div>
-        <h1>
-          Recipup
-        </h1>
         <form>
-          <div className="form-group">
-          <label>Ingredient: </label>
-          <input 
-            type="text" 
-            className="form-control"
-            placeholder="onions"
-            onChange={this.onIngChange}
-          />
+          <div className="ingredient">
+            <p className="title">ingredient</p>
+            <p className="description">What ingredients are you going to use?</p>
+            <input 
+              type="text" 
+              className="ingredient-box"
+              placeholder="onion"
+              onChange={this.onIngChange}
+            />
+            <input 
+              type="text" 
+              className="ingredient-box"
+              placeholder="beef"
+              onChange={this.onIngChange}
+            />
+            <input 
+              type="text" 
+              className="ingredient-box"
+              placeholder="carrot"
+              onChange={this.onIngChange}
+            />
+            <div id="newElementId"></div>
+            <button 
+              type="button" 
+              className="add"
+              onClick={() => this.handleAdd()}>+
+            </button>
           </div>
-          <div className="form-group">
-          <label>Ingredient: </label>
-          <input 
-            type="text" 
-            className="form-control"
-            placeholder="garlic"
-            onChange={this.onIngChange}
-          />
-          </div>
-          <div className="form-group">
-          <label>Ingredient: </label>
-          <input 
-            type="text" 
-            className="form-control"
-            placeholder="tomato"
-            onChange={this.onIngChange}
-          />
+          <div className="recipe">
+            <p className="title">recipe</p>
+            <p className="description">input general recipe name</p>
+            <input 
+              type="text" 
+              className="recipe-box"
+              onChange={this.onRecipeChange}
+            />
           </div>
           <button
-          type="submit"
-          className="teal btn-flat right white-text"
-          onClick={() => this.submit(this.state.ingredients)}>
-          Submit
-        </button>
+            type="submit"
+            className="generate"
+            onClick={() => this.submit(this.state.ingredients, this.state.recipe)}>
+              Generate Recipe!
+          </button>
         </form>
       </div>
     );

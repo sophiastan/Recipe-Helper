@@ -1,0 +1,101 @@
+@import "//cdn.jsdelivr.net/npm/font-applesdgothicneo@1.0/all.min.css";
+body {
+  background-color: #f9d05a;
+  font-family: 'Apple SD Gothic Neo', sans-serif;
+}
+
+.title {
+  width: 91px;
+  height: 24px;
+  margin: 0 69px 4px 0;
+  font-size: 20px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+.description {
+  width: 189px;
+  height: 15px;
+  margin: 4px 130px 20px 0;
+  font-size: 12px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+
+.ingredient {
+  background-color: #fc621b;
+  width: 514px;
+  height: 648px;
+  margin: 52px 164px 14px 0;
+  padding: 20px 20px 250px;
+  border-radius: 12px;
+}
+
+.ingredient-box {
+  width: 155px;
+  height: 155px;
+  margin: 1.5px 1.5px 1.5px 1.5px;
+  padding: 7px 12px 48px 6px;
+  border-radius: 12px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  font-size: 24px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.add {
+  width: 155px;
+  height: 155px;
+  margin: 1.5px;
+  padding: 7px 12px 48px 6px;
+  border-radius: 12px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.recipe {
+  width: 514px;
+  height: 163px;
+  margin: 14px 164px 0 0;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #34b462;
+}
+
+.recipe-box {
+  width: 474px;
+  height: 60px;
+  padding: 19px 413px 17px 18px;
+  border-radius: 12px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  font-size: 20px;
+  font-weight: 800;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+
+.generate {
+  width: 148px;
+  height: 148px;
+  background-color: #131313;
+  color: #ffffff;
+  border-radius: 60%;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
+import Header from './Header';
 import Home from './Home';
 
 class App extends Component {
@@ -9,6 +10,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="container">
+          <Header />
           <Route exact path="/" component={Home} />
         </div>
       </BrowserRouter>
