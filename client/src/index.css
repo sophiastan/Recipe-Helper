@@ -1,9 +1,13 @@
 @import "//cdn.jsdelivr.net/npm/font-applesdgothicneo@1.0/all.min.css";
 body {
   background-color: #f9d05a;
-  font-family: 'Apple SD Gothic Neo', sans-serif;
+  font-family: 'Apple SD Gothic Neo', Verdana, Tahoma, sans-serif;
+  width: 1920px;
+  height: 1080px;
+  padding: 16px 160px 135px;
 }
 
+/* HOME */
 .title {
   width: 91px;
   height: 24px;
@@ -17,8 +21,20 @@ body {
   color: #000000;
 }
 
+.list-title {
+  width: 44px;
+  height: 19px;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+
 .description {
-  width: 189px;
+  width: 250px;
   height: 15px;
   margin: 4px 130px 20px 0;
   font-size: 12px;
@@ -95,7 +111,46 @@ body {
 .generate {
   width: 148px;
   height: 148px;
+  /* margin: 242px 90px 96px 369px;
+  padding: 35px 40px 28px 42px; */
   background-color: #131313;
   color: #ffffff;
   border-radius: 60%;
+}
+
+/* RECIPE LIST */
+.recipe-list {
+  justify-content: flex-start;
+  align-content: flex-start;
+  display: grid;
+}
+
+/* RECIPE CARD */
+.img-list {
+  width: 379px;
+  height: 284px;
+  margin: 0 0 4px;
+  border-radius: 12px;
+}
+
+.details {
+  width: 379px;
+  height: 60px;
+  margin: 4px 0 0;
+  padding: 4px 4px 4px 20px;
+  border-radius: 12px;
+  background-color: #34b462;
+}
+
+.recipe-title {
+  width: 231px;
+  height: 42px;
+  margin: 5px 16px 5px 0;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #181818;
 }

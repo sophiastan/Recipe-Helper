@@ -5,7 +5,8 @@ class RecipeService {
     if (ingredients) {
       const url = `http://localhost:5000/getIngredients/${ingredients}`;
       const res = await fetch(url);
-      return await res.json();
+      const data = await res.json();
+      return data;
     }
     return null;
   }
@@ -16,7 +17,8 @@ class RecipeService {
       const url = `http://localhost:5000/getIngredients/${ingredients}/${recipe}`;
       console.log("recipeService url: ", url);
       const res = await fetch(url);
-      return await res.json();
+      const data = await res.json();
+      return data;
     }
     return null;
   }  
