@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RecipeService from '../services/RecipeService';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   constructor(props) {
@@ -11,16 +12,6 @@ class Home extends Component {
       recipe: "",
       addCount: 0
     }
-  }
-
-  async componentDidMount() {
-    let ingredients = await this.state.recipeService.getIngredients(this.state.ingredients);
-
-    if (ingredients) {
-      this.setState({
-        recipes: ingredients
-      })
-    } 
   }
 
   onIngChange = (event) => {
@@ -43,7 +34,7 @@ class Home extends Component {
     if (this.state.addCount < 3) {
       const newTextInputBox = document.createElement('input');
       newTextInputBox.className = "ingredient-box";
-      newTextInputBox.onchange = this.onIngChange;
+      newTextInputBox.onblur = this.onIngChange;
       document.getElementById("newElementId").appendChild(newTextInputBox);
     }
 
@@ -52,12 +43,6 @@ class Home extends Component {
     })
   }
 
-  submit = (ingredients, recipe) => {
-    console.log("ingredients: ", ingredients);
-    this.state.recipeService.getIngredients(ingredients);
-    this.state.recipeService.getIngredientsRecipe(ingredients, recipe);
-  }
-  
   render() {
     return (
       <div>
@@ -69,19 +54,19 @@ class Home extends Component {
               type="text" 
               className="ingredient-box"
               placeholder="onion"
-              onChange={this.onIngChange}
+              onBlur={this.onIngChange}
             />
             <input 
               type="text" 
               className="ingredient-box"
               placeholder="beef"
-              onChange={this.onIngChange}
+              onBlur={this.onIngChange}
             />
             <input 
               type="text" 
               className="ingredient-box"
               placeholder="carrot"
-              onChange={this.onIngChange}
+              onBlur={this.onIngChange}
             />
             <div id="newElementId"></div>
             <button 
@@ -99,12 +84,19 @@ class Home extends Component {
               onChange={this.onRecipeChange}
             />
           </div>
-          <button
-            type="submit"
-            className="generate"
-            onClick={() => this.submit(this.state.ingredients, this.state.recipe)}>
-              Generate Recipe!
-          </button>
+          <Link to={{
+            pathname: "/recipe",
+            recipeProps: {
+              ingredients: this.state.ingredients,
+              recipe: this.state.recipe
+            }}}>
+            <button
+              type="submit"
+              className="generate"
+              >
+                Generate Recipe!
+            </button>
+          </Link>
         </form>
       </div>
     );
