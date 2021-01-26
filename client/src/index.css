@@ -210,29 +210,44 @@ body {
 .back {
   width: 52px;
   height: 52px;
+  margin-top: 61px;
+  float: left;
 }
-/* .top-detail {
-  width: 854px;
+.top-detail {
+  width: 1057px;
   height: 633px;
-} */
+  margin: 0px 432px 4px 219px;
+  float: left;
+}
+.top-detail-above {
+  width: 1057px;
+  height: 75px;
+  margin-bottom: 48px;
+}
 .detail-img {
   width: 101px;
   height: 75px;
-  margin: 51px 881px 48px 219px;
   border-radius: 8px;
   background-color: #dfdfdf;
+  float: left;
 }
 .link {
   width: 75px;
   height: 75px;
+  float: right;
 }
 .detail-title {
   width: 516px;
   height: 90px;
-  margin-left: 262px;
-  margin: 0px 0px 0px 262px;
-  /* margin: 48px 27px 4px 147px; */
   font-size: 32px;
+  margin-bottom: 33px;
+  float: left;
+}
+.detail-ogING-box {
+  width: 243px;
+  height: 436px;
+  float: right;
+  margin-right: 28px;
 }
 .detail-ogING {
   width: 243px;
@@ -242,7 +257,11 @@ body {
   background-color: #fc621b;
   color: #ffffff;
   margin-bottom: 6px;
-  margin-left: 800px;
+}
+.detail-ing-box {
+  width: 243px;
+  height: 436px;
+  float: right;
 }
 .detail-ing {
   width: 243px;
@@ -251,20 +270,20 @@ body {
   border-radius: 8px;
   background-color: #f0f0f0;
   color: #000000;
+  float: right;
   margin-bottom: 6px;
-  margin-left: 1100px;
+}
+.icon-box {
+  width: 40px;
+  height: 120px;
 }
 .detail-heart {
   width: 40px;
   height: 40px;
-  margin-left: 262px;
-  position: absolute;
-  bottom: 540px;
+  float: left;
 }
 .detail-bookmark {
   width: 40px;
   height: 40px;
-  margin-left: 262px;
-  position: absolute;
-  bottom: 560px;
+  float: left;
 }

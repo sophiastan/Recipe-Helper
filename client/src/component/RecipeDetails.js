@@ -62,35 +62,43 @@ class RecipeDetails extends Component{
   render() {
     return (
       <div>
+        <Link to="/recipes">
+          <img src={defaultBack} className="back" alt="back button"/>
+        </Link>
         <div className="top-detail">
-          <Link to="/recipes">
-            <img src={defaultBack} className="back" alt="back button"/>
-          </Link>
-          <img src={this.state.thumbnail} className="detail-img" alt="thumbnail"/>
-          <Link to ={this.state.href}>
-            <img src={defaultLink} className="link" alt="link button"/>
-          </Link>
+          <div className="top-detail-above">
+            <img src={this.state.thumbnail} className="detail-img" alt="thumbnail"/>
+            <Link to ={this.state.href}>
+              <img src={defaultLink} className="link" alt="link button"/>
+            </Link>
+          </div>
           <p className="detail-title">{this.state.title}</p>
-          {
-            this.state.ogIngredients ? this.state.ogIngredients.map((ing, index) => (
-              <div className="detail-ogING" key={index}>{ing}</div>
-            )) : <h2>no results!</h2>
-          }
-          {
-            this.state.ingredients ? this.state.ingredients.map((ing, index) => (
-              <div className="detail-ing" key={index}>{ing}</div>
-            )) : <h2>no results!</h2>
-          }
-          <img 
-              src={this.state.heartClicked ? activeHeart : defaultHeart} 
-              className="detail-heart"
-              alt="heart" 
-              onClick={this.onHeartClick}/>
-          <img 
-            src={this.state.bookmarkClicked ? activeBookmark : defaultBookmark} 
-            className="detail-bookmark"
-            alt="bookmark" 
-            onClick={this.onBookmarkClick}/>
+          <div className="detail-ing-box">
+            {
+              this.state.ingredients ? this.state.ingredients.map((ing, index) => (
+                <div className="detail-ing" key={index}>{ing}</div>
+              )) : <h2>no results!</h2>
+            }
+          </div>
+          <div className="detail-ogING-box">
+            {
+              this.state.ogIngredients ? this.state.ogIngredients.map((ing, index) => (
+                <div className="detail-ogING" key={index}>{ing}</div>
+              )) : <h2>no results!</h2>
+            }
+          </div>
+          <div className="icon-box">
+            <img 
+                src={this.state.heartClicked ? activeHeart : defaultHeart} 
+                className="detail-heart"
+                alt="heart" 
+                onClick={this.onHeartClick}/>
+            <img 
+              src={this.state.bookmarkClicked ? activeBookmark : defaultBookmark} 
+              className="detail-bookmark"
+              alt="bookmark" 
+              onClick={this.onBookmarkClick}/>
+          </div>
         </div>
       </div>
     );
