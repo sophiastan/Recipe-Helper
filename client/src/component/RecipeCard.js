@@ -51,9 +51,9 @@ class RecipeCard extends Component{
 
   render() {
     return (
-      <div>
+      <div className="col-lg-2.5">
         <div className="card">
-          <Link to ={{
+          <Link style ={{textDecoration: 'none'}} to ={{
             pathname: "/recipes/details",
             recipeProps: {
               ogIngredients: this.state.ogIngredients,

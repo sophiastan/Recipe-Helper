@@ -49,8 +49,7 @@ class RecipeList extends Component {
 
   render() {
     return (
-      <div>
-        <p className="list-title">ingredient</p>
+      <div className="list-container">
         <div className="info-box">
           {
             this.state.ingredients ? this.state.ingredients.map((ing, index) => (
@@ -62,17 +61,18 @@ class RecipeList extends Component {
           {
             this.state.recipe ? (<div className="recipe-box">{this.state.recipe}</div>) : <div></div>
           }
+          <Link to="/">
+            <img className="generate-another" src={GenerateAnother} alt="generate another recipe"/>
+          </Link>
         </div>
-        <Link to="/">
-          <img className="generate-another" src={GenerateAnother} alt="generate another recipe"/>
-        </Link>
-        <p className="list-title">recipe</p>
         <div className="recipe-list">
-          {
-            this.state.list ? this.state.list.map((recipeObj, index) => {
-              return (<RecipeCard key={index} recipe={recipeObj} ingredients={this.state.ingredients}/>);
-            }) : <h2>no results!</h2>
-          }
+          <div className="row">
+            {
+              this.state.list ? this.state.list.map((recipeObj, index) => {
+                return (<RecipeCard key={index} recipe={recipeObj} ingredients={this.state.ingredients}/>);
+              }) : <h2>no results!</h2>
+            }
+          </div>
         </div>
       </div>
     );

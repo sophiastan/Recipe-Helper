@@ -56,21 +56,22 @@ class Home extends Component {
             <input 
               type="text" 
               className="ingredient-input"
-              placeholder="onion"
-              value="onion"
+              placeholder="onions"
+              value="onions"
               onBlur={this.onIngChange}
             />
             <input 
               type="text" 
               className="ingredient-input"
-              placeholder="beef"
-              value="beef"
+              placeholder="celery"
+              value="celery"
               onBlur={this.onIngChange}
             />
             <input 
               type="text" 
               className="ingredient-input"
               placeholder="carrot"
+              value="carrot"
               onBlur={this.onIngChange}
             />
             <div id="newElementId"></div>

@@ -6,6 +6,7 @@ import defaultHeart from '../images/heart-default.png';
 import activeHeart from '../images/heart-active.png';
 import defaultBookmark from '../images/bookmark-default.png';
 import activeBookmark from '../images/bookmark-active.png';
+import { EmailShareButton, FacebookShareButton, TwitterShareButton, EmailIcon, FacebookIcon, TwitterIcon } from 'react-share';
 
 class RecipeDetails extends Component{
   constructor(props) {
@@ -68,9 +69,9 @@ class RecipeDetails extends Component{
         <div className="top-detail">
           <div className="top-detail-above">
             <img src={this.state.thumbnail} className="detail-img" alt="thumbnail"/>
-            <Link to ={this.state.href}>
+            <a  href={this.state.href}>
               <img src={defaultLink} className="link" alt="link button"/>
-            </Link>
+            </a>
           </div>
           <p className="detail-title">{this.state.title}</p>
           <div className="detail-ing-box">
@@ -98,8 +99,12 @@ class RecipeDetails extends Component{
               className="detail-bookmark"
               alt="bookmark" 
               onClick={this.onBookmarkClick}/>
+            <FacebookShareButton data-tip data-for="fb" url={this.state.href}><FacebookIcon size={36} round /></FacebookShareButton>
+            <TwitterShareButton  data-tip data-for="twitter" url={this.state.href}><TwitterIcon size={36} round /></TwitterShareButton>
+            <EmailShareButton  data-tip data-for="email" subject="Recipup" url={this.state.href}><EmailIcon size={36} round /></EmailShareButton>
           </div>
         </div>
+        {/* <p className="more">More generated recipes</p> */}
       </div>
     );
   }
