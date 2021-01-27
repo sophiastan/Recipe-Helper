@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import RecipeService from '../services/RecipeService';
 import { Link } from 'react-router-dom';
+import Generate from '../images/generate-button-circle.png';
+import Text from '../images/text-delicious-healthy-eating.png';
+
 
 class Home extends Component {
   constructor(props) {
@@ -33,7 +36,7 @@ class Home extends Component {
   handleAdd = () => {
     if (this.state.addCount < 3) {
       const newTextInputBox = document.createElement('input');
-      newTextInputBox.className = "ingredient-box";
+      newTextInputBox.className = "ingredient-input";
       newTextInputBox.onblur = this.onIngChange;
       document.getElementById("newElementId").appendChild(newTextInputBox);
     }
@@ -52,20 +55,23 @@ class Home extends Component {
             <p className="description">What ingredients are you going to use?</p>
             <input 
               type="text" 
-              className="ingredient-box"
-              placeholder="onion"
+              className="ingredient-input"
+              placeholder="onions"
+              value="onions"
               onBlur={this.onIngChange}
             />
             <input 
               type="text" 
-              className="ingredient-box"
-              placeholder="beef"
+              className="ingredient-input"
+              placeholder="celery"
+              value="celery"
               onBlur={this.onIngChange}
             />
             <input 
               type="text" 
-              className="ingredient-box"
+              className="ingredient-input"
               placeholder="carrot"
+              value="carrot"
               onBlur={this.onIngChange}
             />
             <div id="newElementId"></div>
@@ -75,28 +81,25 @@ class Home extends Component {
               onClick={() => this.handleAdd()}>+
             </button>
           </div>
+          <Link to={{
+            pathname: "/recipes",
+            recipeProps: {
+              ingredients: this.state.ingredients,
+              recipe: this.state.recipe
+            }}}>
+            <img src={Generate} className="generate" alt="generate button"/>
+          </Link>
+          <img src={Text} className="text-delicious" alt="text"/>
+          <p className="with-text">With randomly generated recipes using your ingredients</p>
           <div className="recipe">
             <p className="title">recipe</p>
             <p className="description">input general recipe name</p>
             <input 
               type="text" 
-              className="recipe-box"
+              className="recipe-input"
               onChange={this.onRecipeChange}
             />
           </div>
-          <Link to={{
-            pathname: "/recipe",
-            recipeProps: {
-              ingredients: this.state.ingredients,
-              recipe: this.state.recipe
-            }}}>
-            <button
-              type="submit"
-              className="generate"
-              >
-                Generate Recipe!
-            </button>
-          </Link>
         </form>
       </div>
     );

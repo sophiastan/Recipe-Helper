@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logo from "../images/logo.png";
 
 const Header = () => {
   return (
@@ -7,9 +8,8 @@ const Header = () => {
       <nav>
         <div className="nav-wrapper">
           <Link
-            to="/"
-            className="brand-logo">
-            Recipup
+            to="/">
+            <img src={Logo} className="brand-logo" alt="website logo"/>
           </Link>
         </div>
       </nav>
