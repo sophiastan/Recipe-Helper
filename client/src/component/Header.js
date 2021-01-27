@@ -11,6 +11,7 @@ const Header = () => {
             to="/">
             <img src={Logo} className="brand-logo" alt="website logo"/>
           </Link>
+          <a href="/auth/google">Sign In With Google</a>
         </div>
       </nav>
     </div>
