@@ -1,9 +1,32 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Logo from "../images/logo.png";
 
 class Header extends Component {
+  renderContent() {
+    switch (this.props.auth) {
+      case null:
+        return;
+      // logged out
+      case false:
+        return (
+          <li className="nav-item">
+            <a href="/auth/google" className="nav-link active" style={{color: '#000000'}}>Login With Google</a>
+          </li>
+        );
+      // logged in
+      default: 
+        return (
+          <li className="nav-item">
+            <a href="/api/logout" className="nav-link active" style={{color: '#000000'}}>logout</a>
+          </li>
+        );
+    }
+  }
+
   render() {
+    console.log(this.props);
     return (
       <nav className="navbar navbar-expand-lg" style={{padding: '0px'}} >
         <Link to="/" className="navbar-brand">
@@ -16,12 +39,7 @@ class Header extends Component {
   
         <div className="collapse navbar-collapse" id="collapsibleNavbar">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <a href="/auth/google" className="nav-link active" style={{color: '#000000'}}>login</a>
-            </li>
-            <li className="nav-item">
-              <a href="/api/logout" className="nav-link active" style={{color: '#000000'}}>logout</a>
-            </li>
+            { this.renderContent()}
           </ul>
         </div>
       </nav>
@@ -29,4 +47,8 @@ class Header extends Component {
   }
 }
 
-export default Header;
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps)(Header);

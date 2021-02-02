@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-// import AuthService from '../services/AuthService';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 import Header from './Header';
 import Home from './Home';
@@ -8,21 +9,9 @@ import RecipeList from './RecipeList';
 import RecipeDetails from './RecipeDetails';
 
 class App extends Component {
-  // constructor(props) {
-  //   super();
-
-  //   this.state = {
-  //     authService: new AuthService()
-  //   }
-  // }
-
-  // async componentDidMount() {
-  //   let user = await this.state.authService.fetchUser();
-  //   if (user) {
-  //     console.log(user);
-  //   }
-  // }
-
+  componentDidMount() {
+    this.props.fetchUser();
+  }
   render() {
     return (
       <BrowserRouter>
@@ -37,4 +26,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, actions)(App);
