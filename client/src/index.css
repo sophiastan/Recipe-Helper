@@ -283,6 +283,11 @@ body {
   height: 40px;
   float: left;
 }
+.detail-share {
+  width: 40px;
+  height: 40px;
+  float: left;
+}
 .more {
   width: 422px;
   height: 21px;

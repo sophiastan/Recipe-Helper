@@ -6,7 +6,9 @@ import defaultHeart from '../images/heart-default.png';
 import activeHeart from '../images/heart-active.png';
 import defaultBookmark from '../images/bookmark-default.png';
 import activeBookmark from '../images/bookmark-active.png';
+import defaultShare from '../images/share-default.png';
 import { EmailShareButton, FacebookShareButton, TwitterShareButton, EmailIcon, FacebookIcon, TwitterIcon } from 'react-share';
+import Modal from 'react-bootstrap/Modal';
 
 class RecipeDetails extends Component{
   constructor(props) {
@@ -30,7 +32,8 @@ class RecipeDetails extends Component{
       thumbnail: props.location.recipeProps.thumbnail,
 
       heartClicked: false,
-      bookmarkClicked: false
+      bookmarkClicked: false,
+      showModal: false
     }
   }
 
@@ -58,6 +61,15 @@ class RecipeDetails extends Component{
         bookmarkClicked: true
       });
     }
+  }
+
+  shareRecipe = (event) => {
+    this.setState({ showModal: true})
+    event.stopPropagation();
+  }
+
+  handleClose = () => {
+    this.setState({ showModal: false })
   }
 
   render() {
@@ -99,9 +111,23 @@ class RecipeDetails extends Component{
               className="detail-bookmark"
               alt="bookmark" 
               onClick={this.onBookmarkClick}/>
-            <FacebookShareButton data-tip data-for="fb" url={this.state.href}><FacebookIcon size={36} round /></FacebookShareButton>
-            <TwitterShareButton  data-tip data-for="twitter" url={this.state.href}><TwitterIcon size={36} round /></TwitterShareButton>
-            <EmailShareButton  data-tip data-for="email" subject="Recipup" url={this.state.href}><EmailIcon size={36} round /></EmailShareButton>
+            <img
+              src={defaultShare}
+              className="detail-share"
+              alt="share"
+              onClick={this.shareRecipe}
+            />
+            <Modal show={this.state.showModal} onHide={this.handleClose}> 
+              <Modal.Header closeButton>
+                <Modal.Title>{this.state.title}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body style={{ textAlign: 'center' }}>
+                <h5>Share via</h5>
+                <FacebookShareButton data-tip data-for="fb" url={this.state.href}><FacebookIcon size={50} round /></FacebookShareButton>
+                <TwitterShareButton data-tip data-for="twitter" url={this.state.href}><TwitterIcon size={50} round /></TwitterShareButton>
+                <EmailShareButton data-tip data-for="email" subject="Recipup" url={this.state.href}><EmailIcon size={50} round /></EmailShareButton>
+              </Modal.Body>
+            </Modal>
           </div>
         </div>
         {/* <p className="more">More generated recipes</p> */}
