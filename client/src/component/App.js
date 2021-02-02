@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+// import AuthService from '../services/AuthService';
 
 import Header from './Header';
 import Home from './Home';
@@ -7,6 +8,20 @@ import RecipeList from './RecipeList';
 import RecipeDetails from './RecipeDetails';
 
 class App extends Component {
+  // constructor(props) {
+  //   super();
+
+  //   this.state = {
+  //     authService: new AuthService()
+  //   }
+  // }
+
+  // async componentDidMount() {
+  //   let user = await this.state.authService.fetchUser();
+  //   if (user) {
+  //     console.log(user);
+  //   }
+  // }
 
   render() {
     return (
@@ -20,6 +35,6 @@ class App extends Component {
       </BrowserRouter>
     )
   }
-};
+}
 
 export default App;
