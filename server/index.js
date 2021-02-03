@@ -36,7 +36,7 @@ require('./routes/authRoutes')(app);
 const baseUrl = "http://www.recipepuppy.com/api";
 
 app.get('/getIngredients/:ingredients', async function (req, res) {
-  const endpoint = "/?i=" + req.params.ingredients
+  const endpoint = "/?i=" + req.params.ingredients + "&oi=1";
   console.log("ONLY INGREDIENTS")
   console.log("SERVER INGREDIENTS: ", req.params.ingredients);
   const ingredients = await fetch(baseUrl + endpoint, {
@@ -53,7 +53,7 @@ app.get('/getIngredients/:ingredients', async function (req, res) {
 });
 
 app.get('/getIngredients/:ingredients/:recipe', async function (req, res) {
-  const endpoint = "/?i=" + req.params.ingredients + "&q=" + req.params.recipe
+  const endpoint = "/?i=" + req.params.ingredients + "&q=" + req.params.recipe + "&oi=1";
   console.log("INGREDIENTS AND RECIPE")
   console.log("SERVER INGREDIENTS: ", req.params.ingredients);
   console.log("SERVER RECIPE: ", req.params.recipe);

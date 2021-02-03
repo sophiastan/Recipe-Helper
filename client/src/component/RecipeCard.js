@@ -10,9 +10,12 @@ import { Link } from 'react-router-dom';
 class RecipeCard extends Component{
   constructor(props) {
     super();
+    // console.log("recipe card OG RECIPE: ", props.inputRecipe);
 
     this.state = {
-      ogIngredients: props.ingredients,
+      recipeList: props.recipeList,
+      inputIngredients: props.inputIngredients,
+      inputRecipe: props.inputRecipe,
       title: props.recipe.title,
       href: props.recipe.href,
       ingredients: props.recipe.ingredients.split(','),
@@ -56,7 +59,9 @@ class RecipeCard extends Component{
           <Link style ={{textDecoration: 'none'}} to ={{
             pathname: "/recipes/details",
             recipeProps: {
-              ogIngredients: this.state.ogIngredients,
+              recipeList: this.state.recipeList,
+              inputIngredients: this.state.inputIngredients,
+              inputRecipe: this.state.inputRecipe,
               title: this.state.title,
               href: this.state.href,
               ingredients: this.state.ingredients,

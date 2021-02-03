@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import RecipeCard from './RecipeCard';
 import defaultBack from '../images/back-default.png';
 import defaultLink from '../images/link-default.png';
 import defaultHeart from '../images/heart-default.png';
@@ -14,18 +15,19 @@ class RecipeDetails extends Component{
   constructor(props) {
     super();
 
-    const ingredients = props.location.recipeProps.ingredients;
+    const inputIngredients = props.location.recipeProps.inputIngredients;
+    console.log("input ING: ", inputIngredients);
 
-    for (let ing of ingredients) {
-      console.log("ingredient: ", ing);
-    }
+    const inputRecipe = props.location.recipeProps.inputRecipe;
+    console.log("input Recipe: ", inputRecipe);
 
-    const ogIngredients = props.location.recipeProps.ogIngredients;
-
-    console.log("OG ING: ", ogIngredients);
+    const recipeList = props.location.recipeProps.recipeList;
+    console.log("recipe List: ", recipeList);
 
     this.state = {
-      ogIngredients: props.location.recipeProps.ogIngredients,
+      recipeList: props.location.recipeProps.recipeList,
+      inputIngredients: props.location.recipeProps.inputIngredients,
+      inputRecipe: props.location.recipeProps.inputRecipe,
       title: props.location.recipeProps.title,
       href: props.location.recipeProps.href,
       ingredients: props.location.recipeProps.ingredients,
@@ -75,9 +77,14 @@ class RecipeDetails extends Component{
   render() {
     return (
       <div>
-        <Link to="/recipes">
-          <img src={defaultBack} className="back" alt="back button"/>
-        </Link>
+        <Link to={{
+            pathname: "/recipes",
+            recipeProps: {
+              ingredients: this.state.inputIngredients,
+              recipe: this.state.inputRecipe
+            }}}>
+            <img src={defaultBack} className="back" alt="back button"/>
+          </Link>
         <div className="top-detail">
           <div className="top-detail-above">
             <img src={this.state.thumbnail} className="detail-img" alt="thumbnail"/>
@@ -95,7 +102,7 @@ class RecipeDetails extends Component{
           </div>
           <div className="detail-ogING-box">
             {
-              this.state.ogIngredients ? this.state.ogIngredients.map((ing, index) => (
+              this.state.inputIngredients ? this.state.inputIngredients.map((ing, index) => (
                 <div className="detail-ogING" key={index}>{ing}</div>
               )) : <h2>no results!</h2>
             }
@@ -131,6 +138,15 @@ class RecipeDetails extends Component{
           </div>
         </div>
         {/* <p className="more">More generated recipes</p> */}
+        <div className="recipe-list">
+          <div className="row">
+            {
+              this.state.recipeList ? this.state.recipeList.map((recipeObj, index) => {
+                return (<RecipeCard key={index} recipeList={this.state.recipeList} recipe={recipeObj} inputRecipe={this.state.inputRecipe} inputIngredients={this.state.inputIngredients}/>);
+              }) : <h2>no results!</h2>
+            }
+          </div>
+        </div>
       </div>
     );
   }
