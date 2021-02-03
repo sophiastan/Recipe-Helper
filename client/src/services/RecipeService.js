@@ -4,6 +4,7 @@ class RecipeService {
   getIngredients = async (ingredients) => {
     if (ingredients) {
       const url = `http://localhost:5000/getIngredients/${ingredients}`;
+      console.log(url);
       const res = await fetch(url);
       const data = await res.json();
       return data;
@@ -15,7 +16,7 @@ class RecipeService {
   getIngredientsRecipe = async (ingredients, recipe) => {
     if (ingredients && recipe) {
       const url = `http://localhost:5000/getIngredients/${ingredients}/${recipe}`;
-      console.log("recipeService url: ", url);
+      console.log(url);
       const res = await fetch(url);
       const data = await res.json();
       return data;

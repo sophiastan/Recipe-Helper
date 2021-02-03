@@ -84,7 +84,7 @@ class Home extends Component {
           <Link to={{
             pathname: "/recipes",
             recipeProps: {
-              ingredients: this.state.ingredients,
+              ingredients: this.state.ingredients.slice(1).split(','),
               recipe: this.state.recipe
             }}}>
             <img src={Generate} className="generate" alt="generate button"/>

@@ -29,7 +29,7 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <nav className="navbar navbar-expand-lg" style={{padding: '0px'}} >
         <Link to="/" className="navbar-brand">

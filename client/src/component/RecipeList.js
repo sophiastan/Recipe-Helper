@@ -14,18 +14,19 @@ class RecipeList extends Component {
     //   console.log(ing);
     // }
     
-    // console.log("recipe: ", props.location.recipeProps.recipe);
+    console.log("recipe: ", props.location.recipeProps.recipe);
+    console.log("ingredients: ", props.location.recipeProps.ingredients)
 
     this.state = {
       recipeService: new RecipeService(),
-      ingredients: props.location.recipeProps.ingredients.slice(1).split(','),
-      recipe: props.location.recipeProps.recipe,
+      ingredients: props.location.recipeProps.ingredients,
+      recipe: props.location.recipeProps.recipe
     }
   }
 
   async componentDidMount() {
     console.log("recipeList componentDidMount");
-    if (this.state.ingredients) {
+    if (this.state.ingredients && !this.state.recipe) {
       let list = await this.state.recipeService.getIngredients(this.state.ingredients);
       
       this.setState({
@@ -34,11 +35,8 @@ class RecipeList extends Component {
 
       console.log("list from RecipeList: ", this.state.list);
     }
-    
     if (this.state.ingredients && this.state.recipe) {
       let listRecipe = await this.state.recipeService.getIngredientsRecipe(this.state.ingredients, this.state.recipe);
-      console.log("list from RecipeList: ");
-      console.log(listRecipe.results);
       this.setState({
         list: listRecipe.results
       });
@@ -46,6 +44,41 @@ class RecipeList extends Component {
       console.log("list: ", this.state.list);
     }
   }
+
+//   async componentDidUpdate(prevProps, prevState) {
+//     console.log("component Updated! ingredients = " + this.state.ingredients);
+//     if ((prevProps.ingredients !== this.state.ingredients) || (prevProps.recipe !== this.state.recipe)) {
+//       if (this.state.ingredients) {
+//         let list = await this.state.recipeService.getIngredients(this.state.ingredients);
+//         this.setState({
+//           list: list.results
+//         });
+//         console.log(this.state.list);
+//       }
+//       if (this.state.ingredients && this.state.recipe) {
+//         let listRecipe = await this.state.recipeService.getIngredientsRecipe(this.state.ingredients, this.state.recipe);
+//         this.setState({
+//           list: listRecipe.results
+//         });
+//         console.log(this.state.list);
+//       }
+//     }
+// }
+
+// static getDerivedStateFromProps(props, state) {
+//   let newIngredients = props.location.recipeProps.ingredients.slice(1).split(',');
+//   let newRecipe = props.location.recipeProps.recipe;
+//   console.log("props: ", newIngredients);
+//   console.log("state: ", state);
+//   if ((state.ingredients  !== newIngredients) || (state.recipe  !== newRecipe)) {
+//     console.log("getting derived state ing: " + newIngredients);
+//     return {
+//       ingredients: newIngredients,
+//       recipe: newRecipe
+//     };
+//   }
+//   return null;
+// }
 
   render() {
     return (
@@ -69,7 +102,7 @@ class RecipeList extends Component {
           <div className="row">
             {
               this.state.list ? this.state.list.map((recipeObj, index) => {
-                return (<RecipeCard key={index} recipe={recipeObj} ingredients={this.state.ingredients}/>);
+                return (<RecipeCard key={index} recipeList={this.state.list} recipe={recipeObj} inputRecipe={this.state.recipe} inputIngredients={this.state.ingredients}/>);
               }) : <h2>no results!</h2>
             }
           </div>
