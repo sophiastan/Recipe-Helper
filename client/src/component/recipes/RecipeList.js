@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import RecipeService from '../services/RecipeService';
+import RecipeService from '../../services/RecipeService';
 import RecipeCard from './RecipeCard';
 import { Link } from 'react-router-dom';
-import GenerateAnother from '../images/generate-another-button.png';
+import GenerateAnother from '../../images/generate-another-button.png';
 
 class RecipeList extends Component {
   constructor(props) {
@@ -11,19 +11,21 @@ class RecipeList extends Component {
     this.state = {
       recipeService: new RecipeService(),
       ingredient: props.location.recipeProps.ingredient,
-      recipe: props.location.recipeProps.recipe
+      recipe: props.location.recipeProps.recipe,
+      category: props.location.recipeProps.category,
+      cuisine: props.location.recipeProps.cuisine
     }
 
     console.log("recipe: ", this.state.recipe);
     console.log("ingredient: ", this.state.ingredient);
+    console.log("category: ", this.state.category);
+    console.log("cuisine: ", this.state.cuisine);
   }
 
   async componentDidMount() {
     console.log("recipeList componentDidMount");
     if (this.state.ingredient) {
       let list = await this.state.recipeService.getIngredient(this.state.ingredient);
-      console.log("getIngredient List: ");
-      console.log(list);
       this.setState({
         list: list
       });
@@ -33,9 +35,21 @@ class RecipeList extends Component {
       this.setState({
         list: listRecipe
       });
-
-      console.log("list: ", this.state.list);
     }
+    if (this.state.category) {
+      let listCategory = await this.state.recipeService.getCategory(this.state.category);
+      this.setState({
+        list: listCategory
+      });
+    }
+    if (this.state.cuisine) {
+      let listCuisine = await this.state.recipeService.getCuisine(this.state.cuisine);
+      this.setState({
+        list: listCuisine
+      });
+    }
+
+    console.log("list: ", this.state.list);
   }
 
   render() {
@@ -57,7 +71,15 @@ class RecipeList extends Component {
           <div className="row">
             {
               this.state.list ? this.state.list.map((recipeObj, index) => {
-                return (<RecipeCard key={index} recipeList={this.state.list} recipe={recipeObj} inputRecipe={this.state.recipe} inputIngredient={this.state.ingredient}/>);
+                return (<RecipeCard 
+                          key={index} 
+                          recipeList={this.state.list} 
+                          recipe={recipeObj} 
+                          inputRecipe={this.state.recipe} 
+                          inputIngredient={this.state.ingredient}
+                          inputCategory={this.state.category}
+                          inputCuisine={this.state.cuisine}
+                        />);
               }) : <div></div>
             }
           </div>

@@ -4,7 +4,7 @@ import RecipeService from '../services/RecipeService';
 import { Link } from 'react-router-dom';
 import Generate from '../images/generate-button-circle.png';
 import Text from '../images/text-delicious-healthy-eating.png';
-
+import Form from 'react-bootstrap/Form';
 
 class Home extends Component {
   constructor(props) {
@@ -13,30 +13,26 @@ class Home extends Component {
     this.state = {
       recipeService: new RecipeService(),
       ingredient: "",
-      recipe: ""
+      recipe: "",
+      category: "",
+      cuisine: "",
+      randomClicked: false
     }
   }
 
-  onIngChange = (event) => {
+  onChange = (event) => {
+    const name = event.target.name;
     const val = event.target.value;
 
     this.setState({
-      ingredient: val
-    });
-  }
-
-  onRecipeChange = (event) => {
-    const val = event.target.value;
-
-    this.setState({
-      recipe: val
+      [name]: val
     });
   }
 
   render() {
     return (
       <div>
-        <form>
+        <Form>
           <div className="ingredient">
             <p className="title">ingredient</p>
             <p className="description">What ingredient are you going to use?</p>
@@ -44,19 +40,22 @@ class Home extends Component {
               type="text" 
               className="ingredient-input"
               placeholder="onions"
-              onBlur={this.onIngChange}
+              name="ingredient"
+              onChange={this.onChange}
             />
             <input 
               type="text" 
               className="ingredient-input"
               placeholder="celery"
-              onBlur={this.onIngChange}
+              name="ingredient"
+              onChange={this.onChange}
             />
             <input 
               type="text" 
               className="ingredient-input"
               placeholder="carrot"
-              onBlur={this.onIngChange}
+              name="ingredient"
+              onChange={this.onChange}
             />
             <div id="newElementId"></div>
             <button 
@@ -68,7 +67,9 @@ class Home extends Component {
             pathname: "/recipes",
             recipeProps: {
               ingredient: this.state.ingredient,
-              recipe: this.state.recipe
+              recipe: this.state.recipe,
+              category: this.state.category,
+              cuisine: this.state.cuisine
             }}}>
             <img src={Generate} className="generate" alt="generate button"/>
           </Link>
@@ -80,10 +81,38 @@ class Home extends Component {
             <input 
               type="text" 
               className="recipe-input"
-              onChange={this.onRecipeChange}
+              name="recipe"
+              onChange={this.onChange}
             />
           </div>
-        </form>
+          {/* <Link to="/random"><img src={Generate} style={{float: 'right'}} alt="generate"/></Link> */}
+          {/* <Link to={{
+            pathname: "/random",
+            randomClicked: !this.state.randomClicked
+          }}>
+            <img src={Generate} style={{float: 'right'}} alt="generate"/>
+          </Link> */}
+          <div className="recipe">
+            <p className="title">category</p>
+            <p className="description">input a category</p>
+            <input 
+              type="text" 
+              className="recipe-input"
+              name="category"
+              onChange={this.onChange}
+            />
+          </div>
+          <div className="recipe">
+            <p className="title">cuisine</p>
+            <p className="description">input a cuisine</p>
+            <input 
+              type="text" 
+              className="recipe-input"
+              name="cuisine"
+              onChange={this.onChange}
+            />
+          </div>
+        </Form>
       </div>
     );
   }
