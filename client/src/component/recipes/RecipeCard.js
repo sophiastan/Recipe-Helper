@@ -1,44 +1,31 @@
 import React, { Component } from 'react';
-import defaultHeart from '../images/heart-default.png';
-import activeHeart from '../images/heart-active.png';
+import defaultHeart from '../../images/heart-default.png';
+import activeHeart from '../../images/heart-active.png';
 // import mouseHeart from '../images/heart-mouseOn.png';
-import defaultBookmark from '../images/bookmark-default.png';
-import activeBookmark from '../images/bookmark-active.png';
+import defaultBookmark from '../../images/bookmark-default.png';
+import activeBookmark from '../../images/bookmark-active.png';
 // import mouseBookmark from '../images/bookmark-mouseOn.png';
 import { Link } from 'react-router-dom';
 
 class RecipeCard extends Component{
   constructor(props) {
     super();
-    console.log("recipe: ", props.recipe);
+    // console.log("recipe: ", props.recipe);
 
     this.state = {
       inputIngredient: props.inputIngredient,
       inputRecipe: props.inputRecipe,
+      inputCategory: props.inputCategory,
+      inputCuisine: props.inputCuisine,
       recipeList: props.recipeList,
       title: props.recipe.strMeal,
       thumbnail: props.recipe.strMealThumb,
-      recipe: props.recipe,
       recipeID: props.recipe.idMeal,
 
       heartClicked: false,
       bookmarkClicked: false
     }
   }
-
-  // async componentDidMount() {
-  //   console.log("Recipe Card from recipeID componentDidMount", this.state.recipeID);
-  //   if (this.state.recipeID) {
-  //     let recipe = await this.state.recipeService.getRecipeByID(this.state.recipeID);
-  //     console.log("getRecipeByID recipe: ", recipe);
-  //     this.setState({
-  //       recipe: recipe
-  //     });
-  //   }
-
-  //   console.log("recipe from Recipe Card: ", this.state.recipe);
-  // }
-
 
   onHeartClick = () => {
     if (this.state.heartClicked) {
@@ -75,8 +62,9 @@ class RecipeCard extends Component{
             recipeProps: {
               inputIngredient: this.state.inputIngredient,
               inputRecipe: this.state.inputRecipe,
+              inputCategory: this.state.inputCategory,
+              inputCuisine: this.state.inputCuisine,
               recipeList: this.state.recipeList,
-              recipe: this.state.recipe,
               recipeID: this.state.recipeID
           }}}>
             <div className="top-card">
