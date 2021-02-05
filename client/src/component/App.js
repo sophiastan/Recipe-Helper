@@ -19,7 +19,7 @@ class App extends Component {
           <Header />
           <Route exact path="/" component={Home} />
           <Route exact path="/recipes" component={RecipeList} />
-          <Route exact path="/recipes/details" component={RecipeDetails} />
+          <Route exact path="/recipes/:recipeID" component={RecipeDetails} />
         </div>
       </BrowserRouter>
     )

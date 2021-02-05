@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RecipeService from '../services/RecipeService';
+// import Carousel from 'react-bootstrap/Carousel';
 import { Link } from 'react-router-dom';
 import Generate from '../images/generate-button-circle.png';
 import Text from '../images/text-delicious-healthy-eating.png';
@@ -11,9 +12,8 @@ class Home extends Component {
 
     this.state = {
       recipeService: new RecipeService(),
-      ingredients: "",
-      recipe: "",
-      addCount: 0
+      ingredient: "",
+      recipe: ""
     }
   }
 
@@ -21,7 +21,7 @@ class Home extends Component {
     const val = event.target.value;
 
     this.setState({
-      ingredients: this.state.ingredients + "," + val
+      ingredient: val
     });
   }
 
@@ -33,58 +33,41 @@ class Home extends Component {
     });
   }
 
-  handleAdd = () => {
-    if (this.state.addCount < 3) {
-      const newTextInputBox = document.createElement('input');
-      newTextInputBox.className = "ingredient-input";
-      newTextInputBox.onblur = this.onIngChange;
-      document.getElementById("newElementId").appendChild(newTextInputBox);
-    }
-
-    this.setState({
-      addCount: this.state.addCount + 1
-    })
-  }
-
   render() {
     return (
       <div>
         <form>
           <div className="ingredient">
             <p className="title">ingredient</p>
-            <p className="description">What ingredients are you going to use?</p>
+            <p className="description">What ingredient are you going to use?</p>
             <input 
               type="text" 
               className="ingredient-input"
               placeholder="onions"
-              value="onions"
               onBlur={this.onIngChange}
             />
             <input 
               type="text" 
               className="ingredient-input"
               placeholder="celery"
-              value="celery"
               onBlur={this.onIngChange}
             />
             <input 
               type="text" 
               className="ingredient-input"
               placeholder="carrot"
-              value="carrot"
               onBlur={this.onIngChange}
             />
             <div id="newElementId"></div>
             <button 
               type="button" 
-              className="add"
-              onClick={() => this.handleAdd()}>+
+              className="add">+
             </button>
           </div>
           <Link to={{
             pathname: "/recipes",
             recipeProps: {
-              ingredients: this.state.ingredients.slice(1).split(','),
+              ingredient: this.state.ingredient,
               recipe: this.state.recipe
             }}}>
             <img src={Generate} className="generate" alt="generate button"/>

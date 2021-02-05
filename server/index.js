@@ -33,12 +33,12 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 
-const baseUrl = "http://www.recipepuppy.com/api";
+const baseUrl = "https://www.themealdb.com/api/json/v1/1";
 
-app.get('/getIngredients/:ingredients', async function (req, res) {
-  const endpoint = "/?i=" + req.params.ingredients + "&oi=1";
-  console.log("ONLY INGREDIENTS")
-  console.log("SERVER INGREDIENTS: ", req.params.ingredients);
+app.get('/getIngredient/:ingredient', async function (req, res) {
+  const endpoint = "/filter.php?i=" + req.params.ingredient;
+  console.log("SERVER INGREDIENT: ", req.params.ingredient);
+  console.log("URL: ", baseUrl + endpoint);
   const ingredients = await fetch(baseUrl + endpoint, {
     headers: {
       Accept: 'application/json',
@@ -48,14 +48,29 @@ app.get('/getIngredients/:ingredients', async function (req, res) {
   });
 
   const data = await ingredients.json();
-  console.log(data);
-  res.json(data);
+  console.log(data.meals);
+  res.json(data.meals);
 });
 
-app.get('/getIngredients/:ingredients/:recipe', async function (req, res) {
-  const endpoint = "/?i=" + req.params.ingredients + "&q=" + req.params.recipe + "&oi=1";
-  console.log("INGREDIENTS AND RECIPE")
-  console.log("SERVER INGREDIENTS: ", req.params.ingredients);
+app.get('/getRecipebyID/:ID', async function (req, res) {
+  const endpoint = "/lookup.php?i=" + req.params.ID;
+  console.log("SERVER ID: ", req.params.ID);
+  console.log("URL: ", baseUrl + endpoint);
+  const ingredients = await fetch(baseUrl + endpoint, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'GET'
+  });
+
+  const data = await ingredients.json();
+  console.log(data.meals[0]);
+  res.json(data.meals[0]);
+});
+
+app.get('/getRecipe/:recipe', async function (req, res) {
+  const endpoint = "/search.php?s=" + req.params.recipe;
   console.log("SERVER RECIPE: ", req.params.recipe);
   const ingredients = await fetch(baseUrl + endpoint, {
     headers: {
@@ -66,8 +81,8 @@ app.get('/getIngredients/:ingredients/:recipe', async function (req, res) {
   });
 
   const data = await ingredients.json();
-  console.log(data);
-  res.json(data);
+  console.log(data.meals);
+  res.json(data.meals);
 });
 
 const PORT = process.env.PORT || 5000;
