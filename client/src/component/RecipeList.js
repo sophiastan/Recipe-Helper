@@ -8,89 +8,44 @@ class RecipeList extends Component {
   constructor(props) {
     super();
 
-    // const ingredients = props.location.recipeProps.ingredients.slice(1).split(',');
-    // const recipe = props.location.recipeProps.recipe;
-    // for (let ing of ingredients) {
-    //   console.log(ing);
-    // }
-    
-    console.log("recipe: ", props.location.recipeProps.recipe);
-    console.log("ingredients: ", props.location.recipeProps.ingredients)
-
     this.state = {
       recipeService: new RecipeService(),
-      ingredients: props.location.recipeProps.ingredients,
+      ingredient: props.location.recipeProps.ingredient,
       recipe: props.location.recipeProps.recipe
     }
+
+    console.log("recipe: ", this.state.recipe);
+    console.log("ingredient: ", this.state.ingredient);
   }
 
   async componentDidMount() {
     console.log("recipeList componentDidMount");
-    if (this.state.ingredients && !this.state.recipe) {
-      let list = await this.state.recipeService.getIngredients(this.state.ingredients);
-      
+    if (this.state.ingredient) {
+      let list = await this.state.recipeService.getIngredient(this.state.ingredient);
+      console.log("getIngredient List: ");
+      console.log(list);
       this.setState({
-        list: list.results
+        list: list
       });
-
-      console.log("list from RecipeList: ", this.state.list);
     }
-    if (this.state.ingredients && this.state.recipe) {
-      let listRecipe = await this.state.recipeService.getIngredientsRecipe(this.state.ingredients, this.state.recipe);
+    if (this.state.recipe) {
+      let listRecipe = await this.state.recipeService.getRecipe(this.state.recipe);
       this.setState({
-        list: listRecipe.results
+        list: listRecipe
       });
 
       console.log("list: ", this.state.list);
     }
   }
 
-//   async componentDidUpdate(prevProps, prevState) {
-//     console.log("component Updated! ingredients = " + this.state.ingredients);
-//     if ((prevProps.ingredients !== this.state.ingredients) || (prevProps.recipe !== this.state.recipe)) {
-//       if (this.state.ingredients) {
-//         let list = await this.state.recipeService.getIngredients(this.state.ingredients);
-//         this.setState({
-//           list: list.results
-//         });
-//         console.log(this.state.list);
-//       }
-//       if (this.state.ingredients && this.state.recipe) {
-//         let listRecipe = await this.state.recipeService.getIngredientsRecipe(this.state.ingredients, this.state.recipe);
-//         this.setState({
-//           list: listRecipe.results
-//         });
-//         console.log(this.state.list);
-//       }
-//     }
-// }
-
-// static getDerivedStateFromProps(props, state) {
-//   let newIngredients = props.location.recipeProps.ingredients.slice(1).split(',');
-//   let newRecipe = props.location.recipeProps.recipe;
-//   console.log("props: ", newIngredients);
-//   console.log("state: ", state);
-//   if ((state.ingredients  !== newIngredients) || (state.recipe  !== newRecipe)) {
-//     console.log("getting derived state ing: " + newIngredients);
-//     return {
-//       ingredients: newIngredients,
-//       recipe: newRecipe
-//     };
-//   }
-//   return null;
-// }
-
   render() {
     return (
       <div className="list-container">
         <div className="info-box">
           {
-            this.state.ingredients ? this.state.ingredients.map((ing, index) => (
-              <div key={index} className="ingredient-box">
-                <p>{ing}</p>
-              </div>
-            )) : <p>no results!</p>
+            this.state.ingredient ? (<div className="ingredient-box"><p>{this.state.ingredient}</p></div>) : <div></div>
           }
+          
           {
             this.state.recipe ? (<div className="recipe-box">{this.state.recipe}</div>) : <div></div>
           }
@@ -102,8 +57,8 @@ class RecipeList extends Component {
           <div className="row">
             {
               this.state.list ? this.state.list.map((recipeObj, index) => {
-                return (<RecipeCard key={index} recipeList={this.state.list} recipe={recipeObj} inputRecipe={this.state.recipe} inputIngredients={this.state.ingredients}/>);
-              }) : <h2>no results!</h2>
+                return (<RecipeCard key={index} recipeList={this.state.list} recipe={recipeObj} inputRecipe={this.state.recipe} inputIngredient={this.state.ingredient}/>);
+              }) : <div></div>
             }
           </div>
         </div>

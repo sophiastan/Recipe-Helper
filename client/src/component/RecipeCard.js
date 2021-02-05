@@ -10,21 +10,35 @@ import { Link } from 'react-router-dom';
 class RecipeCard extends Component{
   constructor(props) {
     super();
-    // console.log("recipe card OG RECIPE: ", props.inputRecipe);
+    console.log("recipe: ", props.recipe);
 
     this.state = {
-      recipeList: props.recipeList,
-      inputIngredients: props.inputIngredients,
+      inputIngredient: props.inputIngredient,
       inputRecipe: props.inputRecipe,
-      title: props.recipe.title,
-      href: props.recipe.href,
-      ingredients: props.recipe.ingredients.split(','),
-      thumbnail: props.recipe.thumbnail,
+      recipeList: props.recipeList,
+      title: props.recipe.strMeal,
+      thumbnail: props.recipe.strMealThumb,
+      recipe: props.recipe,
+      recipeID: props.recipe.idMeal,
 
       heartClicked: false,
       bookmarkClicked: false
     }
   }
+
+  // async componentDidMount() {
+  //   console.log("Recipe Card from recipeID componentDidMount", this.state.recipeID);
+  //   if (this.state.recipeID) {
+  //     let recipe = await this.state.recipeService.getRecipeByID(this.state.recipeID);
+  //     console.log("getRecipeByID recipe: ", recipe);
+  //     this.setState({
+  //       recipe: recipe
+  //     });
+  //   }
+
+  //   console.log("recipe from Recipe Card: ", this.state.recipe);
+  // }
+
 
   onHeartClick = () => {
     if (this.state.heartClicked) {
@@ -57,15 +71,13 @@ class RecipeCard extends Component{
       <div className="col-lg-2.5">
         <div className="card">
           <Link style ={{textDecoration: 'none'}} to ={{
-            pathname: "/recipes/details",
+            pathname: `/recipes/${this.state.recipeID}`,
             recipeProps: {
-              recipeList: this.state.recipeList,
-              inputIngredients: this.state.inputIngredients,
+              inputIngredient: this.state.inputIngredient,
               inputRecipe: this.state.inputRecipe,
-              title: this.state.title,
-              href: this.state.href,
-              ingredients: this.state.ingredients,
-              thumbnail: this.state.thumbnail
+              recipeList: this.state.recipeList,
+              recipe: this.state.recipe,
+              recipeID: this.state.recipeID
           }}}>
             <div className="top-card">
               <p className="recipe-title">{this.state.title}</p>

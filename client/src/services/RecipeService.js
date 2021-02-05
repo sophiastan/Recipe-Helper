@@ -1,9 +1,20 @@
 class RecipeService {
 
   // Retrieves a list of recipes from ingredients 
-  getIngredients = async (ingredients) => {
-    if (ingredients) {
-      const url = `http://localhost:5000/getIngredients/${ingredients}`;
+  getIngredient = async (ingredient) => {
+    if (ingredient) {
+      const url = `http://localhost:5000/getIngredient/${ingredient}`;
+      console.log(url);
+      const res = await fetch(url);
+      const data = await res.json();
+      return data;
+    }
+    return null;
+  }
+
+  getRecipeByID = async (ID) => {
+    if (ID) {
+      const url = `http://localhost:5000/getRecipebyID/${ID}`;
       console.log(url);
       const res = await fetch(url);
       const data = await res.json();
@@ -13,9 +24,9 @@ class RecipeService {
   }
 
   // Retrieves a list of recipes from ingredients 
-  getIngredientsRecipe = async (ingredients, recipe) => {
-    if (ingredients && recipe) {
-      const url = `http://localhost:5000/getIngredients/${ingredients}/${recipe}`;
+  getRecipe = async (recipe) => {
+    if (recipe) {
+      const url = `http://localhost:5000/getRecipe/${recipe}`;
       console.log(url);
       const res = await fetch(url);
       const data = await res.json();
