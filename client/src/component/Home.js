@@ -19,7 +19,7 @@ class Home extends Component {
       recipe: "",
       category: "",
       cuisine: "",
-      alphabet: "",
+      alphabet: ""
       // randomClicked: false
     }
   }
@@ -37,9 +37,19 @@ class Home extends Component {
     let result = [];
     for(let i=65; i<91; i++) {
       result.push(
-        <Button type="button" key={i} name="alphabet" onClick={this.onChange} value={String.fromCharCode(i)} variant="outline-secondary" >
-          {String.fromCharCode(i)}
-        </Button>
+        <Link to={{
+          pathname: "/recipes",
+          recipeProps: {
+            ingredient: this.state.ingredient,
+            recipe: this.state.recipe,
+            category: this.state.category,
+            cuisine: this.state.cuisine,
+            alphabet: String.fromCharCode(i)
+          }}}>
+          <Button type="button" key={i} name="alphabet" onClick={this.onChange} value={String.fromCharCode(i)} variant="outline-secondary" >
+            {String.fromCharCode(i)}
+          </Button>
+        </Link>
       )
     }
     console.log(this.state.alphabet);

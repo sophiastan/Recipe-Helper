@@ -21,7 +21,7 @@ class RecipeList extends Component {
     // console.log("ingredient: ", this.state.ingredient);
     // console.log("category: ", this.state.category);
     // console.log("cuisine: ", this.state.cuisine);
-    console.log("alphabet: ", this.state.alphabet);
+    // console.log("alphabet: ", this.state.alphabet);
   }
 
   async componentDidMount() {
