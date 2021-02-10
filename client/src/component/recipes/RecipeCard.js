@@ -6,6 +6,7 @@ import defaultBookmark from '../../images/bookmark-default.png';
 import activeBookmark from '../../images/bookmark-active.png';
 // import mouseBookmark from '../images/bookmark-mouseOn.png';
 import { Link } from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
 
 class RecipeCard extends Component{
   constructor(props) {
@@ -24,7 +25,8 @@ class RecipeCard extends Component{
       recipeID: props.recipe.idMeal,
 
       heartClicked: false,
-      bookmarkClicked: false
+      bookmarkClicked: false,
+      showFavorite: false
     }
   }
 
@@ -41,7 +43,7 @@ class RecipeCard extends Component{
     }
   }
 
-  onBookmarkClick = () => {
+  onBookmarkClick = (event) => {
     if (this.state.bookmarkClicked) {
       this.setState({
         bookmarkClicked: false
@@ -49,9 +51,15 @@ class RecipeCard extends Component{
     }
     else {
       this.setState({
-        bookmarkClicked: true
+        bookmarkClicked: true,
+        showFavorite: true
       });
     }
+    event.stopPropagation();
+  }
+
+  handleClose = () => {
+    this.setState({ showFavorite: false })
   }
 
   render() {
@@ -85,10 +93,17 @@ class RecipeCard extends Component{
               className="bookmark"
               alt="bookmark" 
               onClick={this.onBookmarkClick}/>
+            <Modal show={this.state.showFavorite} onHide={this.handleClose}>
+              <Modal.Header closeButton></Modal.Header>
+              <Modal.Body>
+                <h5>You saved <b>{this.state.title}</b> to your <Link to="/favorites">Favorites</Link>.</h5>
+              </Modal.Body>
+            </Modal>
           </div>
         </div>
       </div>
     );
   }
 }
+
 export default RecipeCard;

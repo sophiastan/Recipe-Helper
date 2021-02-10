@@ -28,7 +28,8 @@ class RecipeDetails extends Component{
 
       heartClicked: false,
       bookmarkClicked: false,
-      showModal: false
+      showModal: false,
+      showFavorite: false
     }
     console.log(this.state.recipeID);
     // console.log("random Clicked: ", props.location.randomClicked);
@@ -94,7 +95,8 @@ class RecipeDetails extends Component{
     }
     else {
       this.setState({
-        bookmarkClicked: true
+        bookmarkClicked: true,
+        showFavorite: true
       });
     }
   }
@@ -105,7 +107,10 @@ class RecipeDetails extends Component{
   }
 
   handleClose = () => {
-    this.setState({ showModal: false })
+    this.setState({ 
+      showModal: false,
+      showFavorite: false 
+    })
   }
 
   render() {
@@ -161,6 +166,12 @@ class RecipeDetails extends Component{
                 <EmailShareButton data-tip data-for="email" subject="Recipup" url={this.state.recipe.strSource}><EmailIcon size={50} round /></EmailShareButton>
               </Modal.Body>
             </Modal>
+            <Modal show={this.state.showFavorite} onHide={this.handleClose}>
+              <Modal.Header closeButton></Modal.Header>
+              <Modal.Body>
+                <h5>You saved <b>{this.state.recipe.strMeal}</b> to your <Link to="/favorites">Favorites</Link>.</h5>
+              </Modal.Body>
+            </Modal>
           </div>
           <p>Instructions: {this.state.recipe.strInstructions}</p>
           <div className="detail-ing-box">
@@ -182,4 +193,5 @@ class RecipeDetails extends Component{
     );
   }
 }
+
 export default RecipeDetails;

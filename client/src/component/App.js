@@ -7,6 +7,7 @@ import Header from './Header';
 import Home from './Home';
 import RecipeList from './recipes/RecipeList';
 import RecipeDetails from './recipes/RecipeDetails';
+import Favorites from './recipes/Favorites';
 
 class App extends Component {
   componentDidMount() {
@@ -21,6 +22,7 @@ class App extends Component {
           <Route exact path="/recipes" component={RecipeList} />
           {/* <Route exact path={["/recipes/:recipeID", "/random"]} component={RecipeDetails} /> */}
           <Route exact path="/recipes/:recipeID" component={RecipeDetails} />
+          <Route exact path="/favorites" component={Favorites} />
         </div>
       </BrowserRouter>
     )
