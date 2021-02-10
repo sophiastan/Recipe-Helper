@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import Generate from '../images/generate-button-circle.png';
 import Text from '../images/text-delicious-healthy-eating.png';
 import Form from 'react-bootstrap/Form';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
+
 
 class Home extends Component {
   constructor(props) {
@@ -16,7 +19,8 @@ class Home extends Component {
       recipe: "",
       category: "",
       cuisine: "",
-      randomClicked: false
+      alphabet: "",
+      // randomClicked: false
     }
   }
 
@@ -29,10 +33,26 @@ class Home extends Component {
     });
   }
 
+  prepareAlphabets = () => {
+    let result = [];
+    for(let i=65; i<91; i++) {
+      result.push(
+        <Button type="button" key={i} name="alphabet" onClick={this.onChange} value={String.fromCharCode(i)} variant="outline-secondary" >
+          {String.fromCharCode(i)}
+        </Button>
+      )
+    }
+    console.log(this.state.alphabet);
+    return result;
+  }
+
   render() {
     return (
       <div>
         <Form>
+          <ButtonGroup size="lg" style={{ paddingTop: "40px" }}>
+            {this.prepareAlphabets()}
+          </ButtonGroup>
           <div className="ingredient">
             <p className="title">ingredient</p>
             <p className="description">What ingredient are you going to use?</p>
@@ -69,7 +89,8 @@ class Home extends Component {
               ingredient: this.state.ingredient,
               recipe: this.state.recipe,
               category: this.state.category,
-              cuisine: this.state.cuisine
+              cuisine: this.state.cuisine,
+              alphabet: this.state.alphabet
             }}}>
             <img src={Generate} className="generate" alt="generate button"/>
           </Link>
@@ -102,7 +123,7 @@ class Home extends Component {
               onChange={this.onChange}
             />
           </div>
-          <div className="recipe">
+          {/* <div className="recipe">
             <p className="title">cuisine</p>
             <p className="description">input a cuisine</p>
             <input 
@@ -111,7 +132,12 @@ class Home extends Component {
               name="cuisine"
               onChange={this.onChange}
             />
-          </div>
+          </div> */}
+          <Form.Group controlId="formCuisine">
+            <Form.Label>cuisine</Form.Label>
+            <Form.Text className="text-muted">input a cuisine </Form.Text>
+            <Form.Control type="text" name="cuisine" onChange={this.onChange} />
+          </Form.Group>
         </Form>
       </div>
     );
