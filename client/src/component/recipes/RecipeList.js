@@ -13,13 +13,15 @@ class RecipeList extends Component {
       ingredient: props.location.recipeProps.ingredient,
       recipe: props.location.recipeProps.recipe,
       category: props.location.recipeProps.category,
-      cuisine: props.location.recipeProps.cuisine
+      cuisine: props.location.recipeProps.cuisine,
+      alphabet: props.location.recipeProps.alphabet
     }
 
-    console.log("recipe: ", this.state.recipe);
-    console.log("ingredient: ", this.state.ingredient);
-    console.log("category: ", this.state.category);
-    console.log("cuisine: ", this.state.cuisine);
+    // console.log("recipe: ", this.state.recipe);
+    // console.log("ingredient: ", this.state.ingredient);
+    // console.log("category: ", this.state.category);
+    // console.log("cuisine: ", this.state.cuisine);
+    console.log("alphabet: ", this.state.alphabet);
   }
 
   async componentDidMount() {
@@ -47,6 +49,12 @@ class RecipeList extends Component {
       this.setState({
         list: listCuisine
       });
+    }
+    if (this.state.alphabet) {
+      let listLetter = await this.state.recipeService.getFirstLetter(this.state.alphabet);
+      this.setState({
+        list: listLetter
+      })
     }
 
     console.log("list: ", this.state.list);
@@ -79,6 +87,7 @@ class RecipeList extends Component {
                           inputIngredient={this.state.ingredient}
                           inputCategory={this.state.category}
                           inputCuisine={this.state.cuisine}
+                          inputAlphabet={this.state.alphabet}
                         />);
               }) : <div></div>
             }

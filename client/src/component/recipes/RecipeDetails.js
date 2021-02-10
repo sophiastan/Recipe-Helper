@@ -21,6 +21,7 @@ class RecipeDetails extends Component{
       inputRecipe: props.location.recipeProps.inputRecipe,
       inputCategory: props.location.recipeProps.inputCategory,
       inputCuisine: props.location.recipeProps.inputCuisine,
+      inputAlphabet: props.location.recipeProps.inputAlphabet,
       recipeList: props.location.recipeProps.recipeList,
       recipeID: props.location.recipeProps.recipeID,
       recipe: {},
@@ -29,17 +30,6 @@ class RecipeDetails extends Component{
       bookmarkClicked: false,
       showModal: false
     }
-    // if (props.location.recipeProps) {
-    //   this.setState({
-    //     inputIngredient: props.location.recipeProps.inputIngredient,
-    //     inputRecipe: props.location.recipeProps.inputRecipe,
-    //     inputCategory: props.location.recipeProps.inputCategory,
-    //     inputCuisine: props.location.recipeProps.inputCuisine,
-    //     recipeList: props.location.recipeProps.recipeList,
-    //     recipeID: props.location.recipeProps.recipeID,
-    //     randomClicked: props.location.randomClicked
-    //   })
-    // }
     console.log(this.state.recipeID);
     // console.log("random Clicked: ", props.location.randomClicked);
   }
@@ -127,7 +117,8 @@ class RecipeDetails extends Component{
               ingredient: this.state.inputIngredient,
               recipe: this.state.inputRecipe,
               category: this.state.inputCategory,
-              cuisine: this.state.inputCuisine
+              cuisine: this.state.inputCuisine,
+              alphabet: this.state.inputAlphabet
             }}}>
             <img src={defaultBack} className="back" alt="back button"/>
           </Link>

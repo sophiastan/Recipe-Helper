@@ -77,6 +77,18 @@ class RecipeService {
     }
     return null;
   } 
+
+  // Retrieves a list of recipes from first letter
+  getFirstLetter = async (letter) => {
+    if (letter) {
+      const url = `http://localhost:5000/getFirstLetter/${letter}`;
+      console.log(url);
+      const res = await fetch(url);
+      const data = await res.json();
+      return data;
+    }
+    return null;
+  } 
 }
 
 export default RecipeService;

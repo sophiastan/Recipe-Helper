@@ -18,11 +18,18 @@ class Header extends Component {
     }
   }
 
-  onRecipeChange = (event) => {
+  onChange = (event) => {
+    const name = event.target.name;
     const val = event.target.value;
 
     this.setState({
-      recipe: val
+     [name] : val
+    });
+  }
+
+  clearState = () => {
+    this.setState({
+      recipe: ""
     });
   }
 
@@ -40,9 +47,8 @@ class Header extends Component {
       // logged in
       default: 
         return [
-          //   <li className="nav-item">Hello, { this.props.auth.name }</li>
           <Nav className="ml-auto">
-            <NavDropdown title="Your Account" id="basic-nav-dropdown">
+            <NavDropdown title={ `Hello, ${this.props.auth.name}` } id="basic-nav-dropdown">
               <NavDropdown.Item href="/favorites">Favorites</NavDropdown.Item>
               <NavDropdown.Item href="/api/logout">Logout</NavDropdown.Item>
             </NavDropdown>
@@ -54,9 +60,9 @@ class Header extends Component {
   render() {
     // console.log(this.props);
     return (
-      <Navbar style={{ padding: '0px'}}>
+      <Navbar expand="lg" style={{ padding: '0px'}}>
         <Nav className="mr-auto">
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+          <NavDropdown id="basic-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
@@ -66,17 +72,43 @@ class Header extends Component {
           </Link>
         </Nav>
         <Form inline>
-          <FormControl type="text" placeholder="Find a recipe" onChange={this.onRecipeChange} className="mr-sm-2" />
+          <FormControl type="text" placeholder="Find a recipe" onChange={this.onChange} name="recipe" className="mr-sm-2" />
           <Link to={{
             pathname: "/recipes",
             recipeProps: {
               recipe: this.state.recipe
             }}}>
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-success">Search</Button>                    
           </Link>
         </Form>
         {this.renderContent()}
       </Navbar>
+      // <Navbar collapseOnSelect expand="lg" style={{ padding: '0px'}}>
+      //   <Nav className="mr-auto">
+      //     <NavDropdown id="basic-nav-dropdown">
+      //       <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+      //       <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+      //       <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+      //     </NavDropdown>
+      //     <Link to="/">
+      //       <Navbar.Brand><img src={Logo} className="brand-logo" alt="website logo"/></Navbar.Brand>
+      //     </Link>
+      //   </Nav>
+      //   <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+      //   <Navbar.Collapse aria-controls="responsive-navbar-nav">
+      //     <Form className="ml-auto" inline>
+      //       <FormControl type="text" placeholder="Find a recipe" onChange={this.onChange} name="recipe" className="mr-sm-2" />
+      //       <Link to={{
+      //         pathname: "/recipes",
+      //         recipeProps: {
+      //           recipe: this.state.recipe
+      //         }}}>
+      //         <Button variant="outline-success">Search</Button>                    
+      //       </Link>
+      //     </Form>
+      //     {this.renderContent()}
+      //   </Navbar.Collapse>
+      // </Navbar>
     );
   }
 }

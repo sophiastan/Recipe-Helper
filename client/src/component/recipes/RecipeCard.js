@@ -17,6 +17,7 @@ class RecipeCard extends Component{
       inputRecipe: props.inputRecipe,
       inputCategory: props.inputCategory,
       inputCuisine: props.inputCuisine,
+      inputAlphabet: props.inputAlphabet,
       recipeList: props.recipeList,
       title: props.recipe.strMeal,
       thumbnail: props.recipe.strMealThumb,
@@ -64,6 +65,7 @@ class RecipeCard extends Component{
               inputRecipe: this.state.inputRecipe,
               inputCategory: this.state.inputCategory,
               inputCuisine: this.state.inputCuisine,
+              inputAlphabet: this.state.inputAlphabet,
               recipeList: this.state.recipeList,
               recipeID: this.state.recipeID
           }}}>

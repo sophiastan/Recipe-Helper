@@ -121,4 +121,21 @@ module.exports = app => {
     console.log(data.meals);
     res.json(data.meals);
   });
+
+  // Retrieves a list of recipes from first letter
+  app.get('/getFirstLetter/:letter', async function (req, res) {
+    const endpoint = "/search.php?f=" + req.params.letter;
+    console.log("SERVER letter: ", req.params.letter);
+    const recipe = await fetch(baseUrl + endpoint, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'GET'
+    });
+
+    const data = await recipe.json();
+    console.log(data.meals);
+    res.json(data.meals);
+  });
 }
