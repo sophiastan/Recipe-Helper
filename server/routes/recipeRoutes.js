@@ -1,4 +1,7 @@
+const mongoose = require('mongoose');
 const fetch = require('node-fetch');
+const requireLogin = require('../middlewares/requireLogin');
+const User = mongoose.model('users');
 
 module.exports = app => {
   const baseUrl = "https://www.themealdb.com/api/json/v1/1";
@@ -138,4 +141,24 @@ module.exports = app => {
     console.log(data.meals);
     res.json(data.meals);
   });
+
+  // Post favorites to user 
+  app.post('/api/recipes', requireLogin, async (req, res) => {
+    const { ID, title, thumbnail } = req.body;
+    console.log("SAVED RECIPE: ", req.body);
+    req.user.favorites.push({
+      ID: ID,
+      title: title,
+      thumbnail: thumbnail
+    });
+    const user = await req.user.save();
+    res.send(user);
+  })
+
+  // Retrieves favorites from user 
+  app.get('/api/recipes', requireLogin, async (req, res) => {
+    const recipes = await User.favorites;
+
+    res.send(recipes);
+  })
 }

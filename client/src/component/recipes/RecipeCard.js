@@ -7,6 +7,8 @@ import activeBookmark from '../../images/bookmark-active.png';
 // import mouseBookmark from '../images/bookmark-mouseOn.png';
 import { Link } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
+import { connect } from 'react-redux';
+import { saveRecipe } from '../../actions';
 
 class RecipeCard extends Component{
   constructor(props) {
@@ -19,7 +21,6 @@ class RecipeCard extends Component{
       inputCategory: props.inputCategory,
       inputCuisine: props.inputCuisine,
       inputAlphabet: props.inputAlphabet,
-      recipeList: props.recipeList,
       title: props.recipe.strMeal,
       thumbnail: props.recipe.strMealThumb,
       recipeID: props.recipe.idMeal,
@@ -54,6 +55,10 @@ class RecipeCard extends Component{
         bookmarkClicked: true,
         showFavorite: true
       });
+
+      // this.props.saveRecipe(this.state.recipeID, this.state.title, this.state.thumbnail);
+      this.props.saveRecipe(this.state.recipeID, this.state.title, this.state.thumbnail);
+      // this.props.saveRecipe(this.state.recipeID);
     }
     event.stopPropagation();
   }
@@ -74,7 +79,6 @@ class RecipeCard extends Component{
               inputCategory: this.state.inputCategory,
               inputCuisine: this.state.inputCuisine,
               inputAlphabet: this.state.inputAlphabet,
-              recipeList: this.state.recipeList,
               recipeID: this.state.recipeID
           }}}>
             <div className="top-card">
@@ -106,4 +110,8 @@ class RecipeCard extends Component{
   }
 }
 
-export default RecipeCard;
+const mapDispatchToProps = dispatch => ({
+  saveRecipe: (recipeID, title, thumbnail) => dispatch(saveRecipe(recipeID, title, thumbnail))
+});
+
+export default connect(null, mapDispatchToProps)(RecipeCard);

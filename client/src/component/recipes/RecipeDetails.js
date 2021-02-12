@@ -22,7 +22,6 @@ class RecipeDetails extends Component{
       inputCategory: props.location.recipeProps.inputCategory,
       inputCuisine: props.location.recipeProps.inputCuisine,
       inputAlphabet: props.location.recipeProps.inputAlphabet,
-      recipeList: props.location.recipeProps.recipeList,
       recipeID: props.location.recipeProps.recipeID,
       recipe: {},
 
@@ -31,12 +30,12 @@ class RecipeDetails extends Component{
       showModal: false,
       showFavorite: false
     }
-    console.log(this.state.recipeID);
+    // console.log(this.state.recipeID);
     // console.log("random Clicked: ", props.location.randomClicked);
   }
 
   async componentDidMount() {
-    console.log("RecipeDetails from recipeID componentDidMount " + this.state.recipeID);
+    // console.log("RecipeDetails from recipeID componentDidMount " + this.state.recipeID);
     if (this.state.recipeID) {
       let recipe = await this.state.recipeService.getRecipeByID(this.state.recipeID);
       this.setState({

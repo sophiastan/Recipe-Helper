@@ -81,7 +81,6 @@ class RecipeList extends Component {
               this.state.list ? this.state.list.map((recipeObj, index) => {
                 return (<RecipeCard 
                           key={index} 
-                          recipeList={this.state.list} 
                           recipe={recipeObj} 
                           inputRecipe={this.state.recipe} 
                           inputIngredient={this.state.ingredient}
