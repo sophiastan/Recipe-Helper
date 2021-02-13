@@ -10,6 +10,8 @@ import defaultShare from '../../images/share-default.png';
 import { EmailShareButton, FacebookShareButton, TwitterShareButton, EmailIcon, FacebookIcon, TwitterIcon } from 'react-share';
 import Modal from 'react-bootstrap/Modal';
 import RecipeService from '../../services/RecipeService';
+import { connect } from 'react-redux';
+import { saveRecipe } from '../../actions';
 
 class RecipeDetails extends Component{
   constructor(props) {
@@ -41,7 +43,9 @@ class RecipeDetails extends Component{
       this.setState({
         recipe: recipe
       });
+      console.log(recipe);
     }
+    
     // else {
     //   let recipe = await this.state.recipeService.getRandomRecipe();
     //   this.setState({
@@ -97,6 +101,12 @@ class RecipeDetails extends Component{
         bookmarkClicked: true,
         showFavorite: true
       });
+
+      this.props.saveRecipe(
+        this.state.recipe.idMeal, 
+        this.state.recipe.strMeal, 
+        this.state.recipe.strMealThumb
+      );
     }
   }
 
@@ -193,4 +203,8 @@ class RecipeDetails extends Component{
   }
 }
 
-export default RecipeDetails;
+const mapDispatchToProps = dispatch => ({
+  saveRecipe: (recipeID, title, thumbnail) => dispatch(saveRecipe(recipeID, title, thumbnail))
+});
+
+export default connect(null, mapDispatchToProps)(RecipeDetails);

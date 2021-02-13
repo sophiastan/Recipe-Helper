@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER } from './types';
+import { FETCH_USER, FETCH_RECIPES } from './types';
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get('/api/current_user');
@@ -17,6 +17,6 @@ export const saveRecipe = (ID, title, thumbnail) => async dispatch => {
 export const fetchRecipes = () => async dispatch => {
   const res = await axios.get('/api/recipes');
 
-  console.log("fetchRecipe: ", res);
-  dispatch({ type: FETCH_USER, payload: res.data })
+  console.log("fetchRecipes: ", res.data);
+  dispatch({ type: FETCH_RECIPES, payload: res.data })
 }

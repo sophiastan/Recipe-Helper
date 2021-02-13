@@ -56,9 +56,7 @@ class RecipeCard extends Component{
         showFavorite: true
       });
 
-      // this.props.saveRecipe(this.state.recipeID, this.state.title, this.state.thumbnail);
       this.props.saveRecipe(this.state.recipeID, this.state.title, this.state.thumbnail);
-      // this.props.saveRecipe(this.state.recipeID);
     }
     event.stopPropagation();
   }
@@ -72,18 +70,18 @@ class RecipeCard extends Component{
       <div className="col-lg-2.5">
         <div className="card">
           <Link style ={{textDecoration: 'none'}} to ={{
-            pathname: `/recipes/${this.state.recipeID}`,
+            pathname: `/recipes/${this.state.recipeID || this.props.recipe.ID}`,
             recipeProps: {
               inputIngredient: this.state.inputIngredient,
               inputRecipe: this.state.inputRecipe,
               inputCategory: this.state.inputCategory,
               inputCuisine: this.state.inputCuisine,
               inputAlphabet: this.state.inputAlphabet,
-              recipeID: this.state.recipeID
+              recipeID: this.state.recipeID || this.props.recipe.ID
           }}}>
             <div className="top-card">
-              <p className="recipe-title">{this.state.title}</p>
-              <img className="list-img" src={this.state.thumbnail} alt="img"/>
+              <p className="recipe-title">{this.state.title || this.props.recipe.title}</p>
+              <img className="list-img" src={this.state.thumbnail || this.props.recipe.thumbnail} alt="img"/>
             </div>
           </Link>
           <div className="bot-card">

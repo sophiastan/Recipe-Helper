@@ -49,7 +49,7 @@ class Header extends Component {
         return [
           <Nav className="ml-auto">
             <NavDropdown title={ `Hello, ${this.props.auth.name}` } id="basic-nav-dropdown">
-              <NavDropdown.Item href="/favorites">Favorites</NavDropdown.Item>
+              <NavDropdown.Item><Link to="/favorites">Favorites</Link></NavDropdown.Item>
               <NavDropdown.Item href="/api/logout">Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>

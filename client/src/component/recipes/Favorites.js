@@ -9,10 +9,11 @@ class Favorites extends Component {
   }
 
   render() {
+    console.log("recipes: ", this.props.recipes);
     return (
-      <div>
+      <div className="row">
         {
-          this.props.recipes ? this.props.recipes.map((recipeObj, index) => {
+            this.props.recipes ? this.props.recipes.map((recipeObj, index) => {
             return (<RecipeCard
                       key={index} 
                       recipe={recipeObj} 
@@ -29,8 +30,8 @@ class Favorites extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps({ recipes }) {
+  return { recipes };
 }
 
 export default connect(mapStateToProps, { fetchRecipes })(Favorites);
