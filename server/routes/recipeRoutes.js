@@ -144,14 +144,15 @@ module.exports = app => {
 
   // Post favorites to user 
   app.post('/api/recipes', requireLogin, async (req, res) => {
-    const { ID, title, thumbnail } = req.body;
+    const { ID, title, thumbnail, isFavorited } = req.body;
     console.log("SAVED RECIPE: ", req.body);
     const exisitingRecipe = await User.findOne({ favorites: { $elemMatch: { ID: ID } } });
     if (!exisitingRecipe) {
       req.user.favorites.push({
         ID: ID,
         title: title,
-        thumbnail: thumbnail
+        thumbnail: thumbnail,
+        isFavorited: isFavorited
       });
     }
 
@@ -161,13 +162,21 @@ module.exports = app => {
 
   // Retrieves favorites from user 
   app.get('/api/recipes', requireLogin, async (req, res) => {
-    // const recipes = await User.find({ _id: req.user.id }).select({
-    //   favorites: true
-    // });
     const recipes = await User.find({ favorites: req.user.favorites }).select({
       favorites: true
     });
     console.log(recipes[0].favorites);
     res.send(recipes[0].favorites);
+  })
+
+  // Delete favorited recipe from user
+  app.delete('/api/delete/:id', requireLogin, async (req, res) => {
+    const ID = req.params.id;
+    console.log("delete ID: ", ID);
+    const deletedRecipe = await User.findOneAndDelete
+    console.log("deletedRecipe: ", deletedRecipe);
+
+    // const user = await req.user.save();
+    // res.send(user);
   })
 }

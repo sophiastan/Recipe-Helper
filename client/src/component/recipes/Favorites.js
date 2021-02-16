@@ -17,6 +17,7 @@ class Favorites extends Component {
             return (<RecipeCard
                       key={index} 
                       recipe={recipeObj} 
+                      isFavorited={true}
                       inputRecipe="{this.state.recipe}"
                       inputIngredient="{this.state.ingredient}"
                       inputCategory="{this.state.category}"

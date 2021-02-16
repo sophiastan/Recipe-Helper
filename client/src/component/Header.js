@@ -10,7 +10,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
 class Header extends Component {
-  constructor(props) {
+  constructor() {
     super();
 
     this.state = {
@@ -49,7 +49,7 @@ class Header extends Component {
         return [
           <Nav className="ml-auto">
             <NavDropdown title={ `Hello, ${this.props.auth.name}` } id="basic-nav-dropdown">
-              <NavDropdown.Item><Link to="/favorites">Favorites</Link></NavDropdown.Item>
+              <NavDropdown.Item href="/favorites">Favorites</NavDropdown.Item>
               <NavDropdown.Item href="/api/logout">Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
@@ -58,7 +58,6 @@ class Header extends Component {
   }
 
   render() {
-    // console.log(this.props);
     return (
       <Navbar expand="lg" style={{ padding: '0px'}}>
         <Nav className="mr-auto">

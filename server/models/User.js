@@ -7,7 +7,8 @@ const userSchema = new Schema({
   favorites: [{
     ID: Number,
     title: String,
-    thumbnail: String
+    thumbnail: String,
+    isFavorited: Boolean
   }]
 });
 

@@ -8,7 +8,7 @@ import activeBookmark from '../../images/bookmark-active.png';
 import { Link } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux';
-import { saveRecipe } from '../../actions';
+import { saveRecipe, deleteRecipe } from '../../actions';
 
 class RecipeCard extends Component{
   constructor(props) {
@@ -26,8 +26,8 @@ class RecipeCard extends Component{
       recipeID: props.recipe.idMeal,
 
       heartClicked: false,
-      bookmarkClicked: false,
-      showFavorite: false
+      isFavorited: false || props.isFavorited,
+      showFavorite: false 
     }
   }
 
@@ -45,18 +45,21 @@ class RecipeCard extends Component{
   }
 
   onBookmarkClick = (event) => {
-    if (this.state.bookmarkClicked) {
+    if (this.state.isFavorited) {
       this.setState({
-        bookmarkClicked: false
+        isFavorited: false
       });
+      // console.log(this.state.recipeID);
+      // this.props.deleteRecipe(this.state.recipeID);
+      this.props.deleteRecipe("52907");
     }
     else {
       this.setState({
-        bookmarkClicked: true,
+        isFavorited: true,
         showFavorite: true
       });
-
-      this.props.saveRecipe(this.state.recipeID, this.state.title, this.state.thumbnail);
+      // console.log(this.state.recipeID);
+      this.props.saveRecipe(this.state.recipeID, this.state.title, this.state.thumbnail, this.state.isFavorited);
     }
     event.stopPropagation();
   }
@@ -77,7 +80,8 @@ class RecipeCard extends Component{
               inputCategory: this.state.inputCategory,
               inputCuisine: this.state.inputCuisine,
               inputAlphabet: this.state.inputAlphabet,
-              recipeID: this.state.recipeID || this.props.recipe.ID
+              recipeID: this.state.recipeID || this.props.recipe.ID, 
+              isFavorited: this.props.isFavorited
           }}}>
             <div className="top-card">
               <p className="recipe-title">{this.state.title || this.props.recipe.title}</p>
@@ -91,7 +95,7 @@ class RecipeCard extends Component{
               alt="liked heart" 
               onClick={this.onHeartClick}/>
             <img 
-              src={this.state.bookmarkClicked ? activeBookmark : defaultBookmark} 
+              src={this.state.isFavorited ? activeBookmark : defaultBookmark} 
               className="bookmark"
               alt="bookmark" 
               onClick={this.onBookmarkClick}/>
@@ -109,7 +113,8 @@ class RecipeCard extends Component{
 }
 
 const mapDispatchToProps = dispatch => ({
-  saveRecipe: (recipeID, title, thumbnail) => dispatch(saveRecipe(recipeID, title, thumbnail))
+  saveRecipe: (recipeID, title, thumbnail) => dispatch(saveRecipe(recipeID, title, thumbnail)),
+  deleteRecipe: (recipeID) => dispatch(deleteRecipe(recipeID))
 });
 
 export default connect(null, mapDispatchToProps)(RecipeCard);

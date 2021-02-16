@@ -28,7 +28,7 @@ class RecipeDetails extends Component{
       recipe: {},
 
       heartClicked: false,
-      bookmarkClicked: false,
+      isFavorited: false || props.location.recipeProps.isFavorited,
       showModal: false,
       showFavorite: false
     }
@@ -91,21 +91,22 @@ class RecipeDetails extends Component{
   }
 
   onBookmarkClick = () => {
-    if (this.state.bookmarkClicked) {
+    if (this.state.isFavorited) {
       this.setState({
-        bookmarkClicked: false
+        isFavorited: false
       });
     }
     else {
       this.setState({
-        bookmarkClicked: true,
+        isFavorited: true,
         showFavorite: true
       });
 
       this.props.saveRecipe(
         this.state.recipe.idMeal, 
         this.state.recipe.strMeal, 
-        this.state.recipe.strMealThumb
+        this.state.recipe.strMealThumb,
+        this.state.isFavorited
       );
     }
   }
@@ -154,7 +155,7 @@ class RecipeDetails extends Component{
                 alt="heart" 
                 onClick={this.onHeartClick}/>
             <img 
-              src={this.state.bookmarkClicked ? activeBookmark : defaultBookmark} 
+              src={this.state.isFavorited ? activeBookmark : defaultBookmark} 
               className="detail-bookmark"
               alt="bookmark" 
               onClick={this.onBookmarkClick}/>
