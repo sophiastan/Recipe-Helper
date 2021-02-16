@@ -10,7 +10,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
 class Header extends Component {
-  constructor(props) {
+  constructor() {
     super();
 
     this.state = {
@@ -58,7 +58,6 @@ class Header extends Component {
   }
 
   render() {
-    // console.log(this.props);
     return (
       <Navbar expand="lg" style={{ padding: '0px'}}>
         <Nav className="mr-auto">

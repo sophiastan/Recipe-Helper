@@ -10,6 +10,8 @@ import defaultShare from '../../images/share-default.png';
 import { EmailShareButton, FacebookShareButton, TwitterShareButton, EmailIcon, FacebookIcon, TwitterIcon } from 'react-share';
 import Modal from 'react-bootstrap/Modal';
 import RecipeService from '../../services/RecipeService';
+import { connect } from 'react-redux';
+import { saveRecipe } from '../../actions';
 
 class RecipeDetails extends Component{
   constructor(props) {
@@ -22,27 +24,28 @@ class RecipeDetails extends Component{
       inputCategory: props.location.recipeProps.inputCategory,
       inputCuisine: props.location.recipeProps.inputCuisine,
       inputAlphabet: props.location.recipeProps.inputAlphabet,
-      recipeList: props.location.recipeProps.recipeList,
       recipeID: props.location.recipeProps.recipeID,
       recipe: {},
 
       heartClicked: false,
-      bookmarkClicked: false,
+      isFavorited: false || props.location.recipeProps.isFavorited,
       showModal: false,
       showFavorite: false
     }
-    console.log(this.state.recipeID);
+    // console.log(this.state.recipeID);
     // console.log("random Clicked: ", props.location.randomClicked);
   }
 
   async componentDidMount() {
-    console.log("RecipeDetails from recipeID componentDidMount " + this.state.recipeID);
+    // console.log("RecipeDetails from recipeID componentDidMount " + this.state.recipeID);
     if (this.state.recipeID) {
       let recipe = await this.state.recipeService.getRecipeByID(this.state.recipeID);
       this.setState({
         recipe: recipe
       });
+      console.log(recipe);
     }
+    
     // else {
     //   let recipe = await this.state.recipeService.getRandomRecipe();
     //   this.setState({
@@ -88,16 +91,23 @@ class RecipeDetails extends Component{
   }
 
   onBookmarkClick = () => {
-    if (this.state.bookmarkClicked) {
+    if (this.state.isFavorited) {
       this.setState({
-        bookmarkClicked: false
+        isFavorited: false
       });
     }
     else {
       this.setState({
-        bookmarkClicked: true,
+        isFavorited: true,
         showFavorite: true
       });
+
+      this.props.saveRecipe(
+        this.state.recipe.idMeal, 
+        this.state.recipe.strMeal, 
+        this.state.recipe.strMealThumb,
+        this.state.isFavorited
+      );
     }
   }
 
@@ -145,7 +155,7 @@ class RecipeDetails extends Component{
                 alt="heart" 
                 onClick={this.onHeartClick}/>
             <img 
-              src={this.state.bookmarkClicked ? activeBookmark : defaultBookmark} 
+              src={this.state.isFavorited ? activeBookmark : defaultBookmark} 
               className="detail-bookmark"
               alt="bookmark" 
               onClick={this.onBookmarkClick}/>
@@ -194,4 +204,8 @@ class RecipeDetails extends Component{
   }
 }
 
-export default RecipeDetails;
+const mapDispatchToProps = dispatch => ({
+  saveRecipe: (recipeID, title, thumbnail) => dispatch(saveRecipe(recipeID, title, thumbnail))
+});
+
+export default connect(null, mapDispatchToProps)(RecipeDetails);

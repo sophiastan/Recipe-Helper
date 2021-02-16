@@ -1,27 +1,23 @@
 import React, { Component } from 'react';
-import RecipeService from '../../services/RecipeService';
 import RecipeCard from '../recipes/RecipeCard';
 import { connect } from 'react-redux';
+import { fetchRecipes } from '../../actions';
 
 class Favorites extends Component {
-  constructor(props) {
-    super();
-
-    this.state = {
-      recipeService: new RecipeService(),
-      list: []
-    }
+  componentDidMount() {
+    this.props.fetchRecipes();
   }
 
   render() {
+    console.log("recipes: ", this.props.recipes);
     return (
-      <div>
+      <div className="row">
         {
-          this.state.list ? this.state.list.map((recipeObj, index) => {
+            this.props.recipes ? this.props.recipes.map((recipeObj, index) => {
             return (<RecipeCard
                       key={index} 
-                      recipeList={this.state.list} 
                       recipe={recipeObj} 
+                      isFavorited={true}
                       inputRecipe="{this.state.recipe}"
                       inputIngredient="{this.state.ingredient}"
                       inputCategory="{this.state.category}"
@@ -35,8 +31,8 @@ class Favorites extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps({ recipes }) {
+  return { recipes };
 }
 
-export default connect(mapStateToProps)(Favorites);
+export default connect(mapStateToProps, { fetchRecipes })(Favorites);

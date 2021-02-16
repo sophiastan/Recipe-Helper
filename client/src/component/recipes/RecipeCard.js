@@ -7,6 +7,8 @@ import activeBookmark from '../../images/bookmark-active.png';
 // import mouseBookmark from '../images/bookmark-mouseOn.png';
 import { Link } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
+import { connect } from 'react-redux';
+import { saveRecipe, deleteRecipe } from '../../actions';
 
 class RecipeCard extends Component{
   constructor(props) {
@@ -19,14 +21,13 @@ class RecipeCard extends Component{
       inputCategory: props.inputCategory,
       inputCuisine: props.inputCuisine,
       inputAlphabet: props.inputAlphabet,
-      recipeList: props.recipeList,
       title: props.recipe.strMeal,
       thumbnail: props.recipe.strMealThumb,
       recipeID: props.recipe.idMeal,
 
       heartClicked: false,
-      bookmarkClicked: false,
-      showFavorite: false
+      isFavorited: false || props.isFavorited,
+      showFavorite: false 
     }
   }
 
@@ -44,16 +45,21 @@ class RecipeCard extends Component{
   }
 
   onBookmarkClick = (event) => {
-    if (this.state.bookmarkClicked) {
+    if (this.state.isFavorited) {
       this.setState({
-        bookmarkClicked: false
+        isFavorited: false
       });
+      // console.log(this.state.recipeID);
+      // this.props.deleteRecipe(this.state.recipeID);
+      this.props.deleteRecipe("52907");
     }
     else {
       this.setState({
-        bookmarkClicked: true,
+        isFavorited: true,
         showFavorite: true
       });
+      // console.log(this.state.recipeID);
+      this.props.saveRecipe(this.state.recipeID, this.state.title, this.state.thumbnail, this.state.isFavorited);
     }
     event.stopPropagation();
   }
@@ -67,19 +73,19 @@ class RecipeCard extends Component{
       <div className="col-lg-2.5">
         <div className="card">
           <Link style ={{textDecoration: 'none'}} to ={{
-            pathname: `/recipes/${this.state.recipeID}`,
+            pathname: `/recipes/${this.state.recipeID || this.props.recipe.ID}`,
             recipeProps: {
               inputIngredient: this.state.inputIngredient,
               inputRecipe: this.state.inputRecipe,
               inputCategory: this.state.inputCategory,
               inputCuisine: this.state.inputCuisine,
               inputAlphabet: this.state.inputAlphabet,
-              recipeList: this.state.recipeList,
-              recipeID: this.state.recipeID
+              recipeID: this.state.recipeID || this.props.recipe.ID, 
+              isFavorited: this.props.isFavorited
           }}}>
             <div className="top-card">
-              <p className="recipe-title">{this.state.title}</p>
-              <img className="list-img" src={this.state.thumbnail} alt="img"/>
+              <p className="recipe-title">{this.state.title || this.props.recipe.title}</p>
+              <img className="list-img" src={this.state.thumbnail || this.props.recipe.thumbnail} alt="img"/>
             </div>
           </Link>
           <div className="bot-card">
@@ -89,7 +95,7 @@ class RecipeCard extends Component{
               alt="liked heart" 
               onClick={this.onHeartClick}/>
             <img 
-              src={this.state.bookmarkClicked ? activeBookmark : defaultBookmark} 
+              src={this.state.isFavorited ? activeBookmark : defaultBookmark} 
               className="bookmark"
               alt="bookmark" 
               onClick={this.onBookmarkClick}/>
@@ -106,4 +112,9 @@ class RecipeCard extends Component{
   }
 }
 
-export default RecipeCard;
+const mapDispatchToProps = dispatch => ({
+  saveRecipe: (recipeID, title, thumbnail) => dispatch(saveRecipe(recipeID, title, thumbnail)),
+  deleteRecipe: (recipeID) => dispatch(deleteRecipe(recipeID))
+});
+
+export default connect(null, mapDispatchToProps)(RecipeCard);
