@@ -22,24 +22,29 @@ class RecipeCard extends Component{
       title: props.recipe.strMeal,
       thumbnail: props.recipe.strMealThumb,
       recipeID: props.recipe.idMeal,
+      recipe: props.recipe,
 
-      heartClicked: false,
       isFavorited: false || props.isFavorited,
-      showFavorite: false 
+      showFavorite: false
     }
   }
 
-  onHeartClick = () => {
-    if (this.state.heartClicked) {
+  async componentDidUpdate(prevProps, prevState) {
+    if (prevProps.recipe !== this.state.recipe) {
       this.setState({
-        heartClicked: false
-      });
+        title: this.state.recipe.strMeal,
+        thumbnail: this.state.recipe.strMealThumb
+      })
     }
-    else {
-      this.setState({
-        heartClicked: true
-      });
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (state.recipe  !== props.recipe) {
+      return {
+        recipe: props.recipe
+      };
     }
+    return null;
   }
 
   onBookmarkClick = (event) => {
@@ -47,7 +52,7 @@ class RecipeCard extends Component{
       this.setState({
         isFavorited: false
       });
-      this.props.deleteRecipe("52907");
+      // this.props.deleteRecipe("52907");
     }
     else {
       this.setState({

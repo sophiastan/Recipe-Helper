@@ -72,6 +72,7 @@ class Header extends Component {
             <Link to={{
               pathname: '/recipes',
               recipeProps: {
+                alphabet: 'A',
                 isAlphabet: true
             }}}>A-Z</Link>
             <a href="/">Category</a>
