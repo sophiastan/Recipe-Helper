@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import defaultHeart from '../../images/heart-default.png';
-import activeHeart from '../../images/heart-active.png';
-// import mouseHeart from '../images/heart-mouseOn.png';
-import defaultBookmark from '../../images/bookmark-default.png';
-import activeBookmark from '../../images/bookmark-active.png';
-// import mouseBookmark from '../images/bookmark-mouseOn.png';
-import { Link } from 'react-router-dom';
-import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux';
 import { saveRecipe, deleteRecipe } from '../../actions';
+import { Link } from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+import heartDefault from '../../images/card-heart-default.png';
+import heartActive from '../../images/card-heart-active.png';
 
 class RecipeCard extends Component{
   constructor(props) {
@@ -49,8 +47,6 @@ class RecipeCard extends Component{
       this.setState({
         isFavorited: false
       });
-      // console.log(this.state.recipeID);
-      // this.props.deleteRecipe(this.state.recipeID);
       this.props.deleteRecipe("52907");
     }
     else {
@@ -58,7 +54,6 @@ class RecipeCard extends Component{
         isFavorited: true,
         showFavorite: true
       });
-      // console.log(this.state.recipeID);
       this.props.saveRecipe(this.state.recipeID, this.state.title, this.state.thumbnail, this.state.isFavorited);
     }
     event.stopPropagation();
@@ -70,8 +65,8 @@ class RecipeCard extends Component{
 
   render() {
     return (
-      <div className="col-lg-2.5">
-        <div className="card">
+      <Col style={{ padding: '0px 20px 22px 0px' }} lg={3.5}>
+        <Card bg='transparent' style={{ width: '19rem', border: 'none' }}>
           <Link style ={{textDecoration: 'none'}} to ={{
             pathname: `/recipes/${this.state.recipeID || this.props.recipe.ID}`,
             recipeProps: {
@@ -83,31 +78,26 @@ class RecipeCard extends Component{
               recipeID: this.state.recipeID || this.props.recipe.ID, 
               isFavorited: this.props.isFavorited
           }}}>
-            <div className="top-card">
-              <p className="recipe-title">{this.state.title || this.props.recipe.title}</p>
-              <img className="list-img" src={this.state.thumbnail || this.props.recipe.thumbnail} alt="img"/>
-            </div>
+            <Card.Img 
+              style={{ borderRadius: '0.7rem' }} 
+              src={this.state.thumbnail || this.props.recipe.thumbnail} />
           </Link>
-          <div className="bot-card">
-            <img 
-              src={this.state.heartClicked ? activeHeart : defaultHeart} 
-              className="heart"
-              alt="liked heart" 
-              onClick={this.onHeartClick}/>
-            <img 
-              src={this.state.isFavorited ? activeBookmark : defaultBookmark} 
-              className="bookmark"
-              alt="bookmark" 
-              onClick={this.onBookmarkClick}/>
-            <Modal show={this.state.showFavorite} onHide={this.handleClose}>
-              <Modal.Header closeButton></Modal.Header>
-              <Modal.Body>
-                <h5>You saved <b>{this.state.title}</b> to your <Link to="/favorites">Favorites</Link>.</h5>
-              </Modal.Body>
-            </Modal>
-          </div>
-        </div>
-      </div>
+          <Card.Body style={{ padding: '1rem 0.3rem 0.3rem' }}>
+            <Card.Title style={{ float: 'left', maxWidth: '15.75rem', fontSize: '1rem' }}>{this.state.title || this.props.recipe.title}</Card.Title>
+            <Card.Img 
+              src={this.state.isFavorited ? heartActive : heartDefault} 
+              className='bookmark'
+              alt='favorite' 
+              onClick={this.onBookmarkClick} />
+          </Card.Body>
+        </Card>
+        <Modal show={this.state.showFavorite} onHide={this.handleClose}>
+          <Modal.Header closeButton></Modal.Header>
+          <Modal.Body>
+            <h5>You saved <b>{this.state.title}</b> to your <Link to='/favorites'>Favorites</Link>.</h5>
+          </Modal.Body>
+        </Modal>
+      </Col>
     );
   }
 }

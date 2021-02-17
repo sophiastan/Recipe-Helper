@@ -7,7 +7,9 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
+import searchHeader from '../images/search-header.png';
+import { slide as Menu } from 'react-burger-menu';
+import iconToggle from '../images/icon-toggle.png';
 
 class Header extends Component {
   constructor() {
@@ -59,55 +61,41 @@ class Header extends Component {
 
   render() {
     return (
-      <Navbar expand="lg" style={{ padding: '0px'}}>
+      <Navbar collapseOnSelect expand="lg" style={{ marginLeft: "160px",marginRight: "160px" }}>
         <Nav className="mr-auto">
-          <NavDropdown id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-          </NavDropdown>
+          <Menu disableAutoFocus customBurgerIcon={ <img src={iconToggle} alt="toggle-icon" /> }>
+            <p className="toggle-title">Search by</p>
+            <a href="/">Recipe</a>
+            <a href="/ingredient">Ingredient</a>
+            <p className="toggle-title">Filter by</p>
+            {/* <a href="/recipes">A-Z</a> */}
+            <Link to={{
+              pathname: '/recipes',
+              recipeProps: {
+                isAlphabet: true
+            }}}>A-Z</Link>
+            <a href="/">Category</a>
+            <a href="/">Cuisine</a>
+          </Menu>
           <Link to="/">
             <Navbar.Brand><img src={Logo} className="brand-logo" alt="website logo"/></Navbar.Brand>
           </Link>
         </Nav>
-        <Form inline>
-          <FormControl type="text" placeholder="Find a recipe" onChange={this.onChange} name="recipe" className="mr-sm-2" />
-          <Link to={{
-            pathname: "/recipes",
-            recipeProps: {
-              recipe: this.state.recipe
-            }}}>
-            <Button variant="outline-success">Search</Button>                    
-          </Link>
-        </Form>
-        {this.renderContent()}
+        <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+        <Navbar.Collapse aria-controls="responsive-navbar-nav">
+          <Form className="ml-auto" inline>
+            <FormControl type="text" placeholder="Find a recipe" onChange={this.onChange} name="recipe" className="mr-sm-2 search-header"></FormControl>
+            <Link  to={{
+              pathname: "/recipes",
+              recipeProps: {
+                recipe: this.state.recipe
+              }}}>
+              <img src={searchHeader} className="search-header-btn" alt="search" />
+            </Link>
+          </Form>
+          {this.renderContent()}
+        </Navbar.Collapse>
       </Navbar>
-      // <Navbar collapseOnSelect expand="lg" style={{ padding: '0px'}}>
-      //   <Nav className="mr-auto">
-      //     <NavDropdown id="basic-nav-dropdown">
-      //       <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-      //       <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-      //       <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-      //     </NavDropdown>
-      //     <Link to="/">
-      //       <Navbar.Brand><img src={Logo} className="brand-logo" alt="website logo"/></Navbar.Brand>
-      //     </Link>
-      //   </Nav>
-      //   <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
-      //   <Navbar.Collapse aria-controls="responsive-navbar-nav">
-      //     <Form className="ml-auto" inline>
-      //       <FormControl type="text" placeholder="Find a recipe" onChange={this.onChange} name="recipe" className="mr-sm-2" />
-      //       <Link to={{
-      //         pathname: "/recipes",
-      //         recipeProps: {
-      //           recipe: this.state.recipe
-      //         }}}>
-      //         <Button variant="outline-success">Search</Button>                    
-      //       </Link>
-      //     </Form>
-      //     {this.renderContent()}
-      //   </Navbar.Collapse>
-      // </Navbar>
     );
   }
 }

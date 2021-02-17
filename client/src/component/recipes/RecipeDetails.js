@@ -62,11 +62,11 @@ class RecipeDetails extends Component{
     let ingredientList = [];
     let measureList = [];
     for (let [key,value] of Object.entries(this.state.recipe)) {
-      if (key.includes("strIngredient")) {
+      if (key.includes('strIngredient')) {
         if (value !== '' && value !== ' ' && value !== null) 
           ingredientList.push(value);
       }
-      else if (key.includes("strMeasure")) {
+      else if (key.includes('strMeasure')) {
         if (value !== '' && value !== ' ' && value !== null) 
           measureList.push(value);
       }
@@ -127,7 +127,7 @@ class RecipeDetails extends Component{
     return (
       <div>
         <Link to={{
-            pathname: "/recipes",
+            pathname: '/recipes',
             recipeProps: {
               ingredient: this.state.inputIngredient,
               recipe: this.state.inputRecipe,
@@ -135,9 +135,9 @@ class RecipeDetails extends Component{
               cuisine: this.state.inputCuisine,
               alphabet: this.state.inputAlphabet
             }}}>
-            <img src={defaultBack} className="back" alt="back button"/>
+            <img src={defaultBack} className='back' alt='back button'/>
           </Link>
-        <div className="top-detail">
+        <div className='top-detail'>
           <div className="top-detail-above">
             <img src={this.state.recipe.strMealThumb} className="detail-img" alt="thumbnail"/>
             <a  href={this.state.recipe.strSource ? this.state.recipe.strSource : ""}>
