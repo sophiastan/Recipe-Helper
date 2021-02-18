@@ -20,18 +20,18 @@ class RecipeList extends Component {
       alphabet: props.location.recipeProps.alphabet ? props.location.recipeProps.alphabet : '',
       list: []
     }
-    console.log("Recipe List alphabet: ", props.location.recipeProps.alphabet);
-    console.log("Recipe List isAlphabet: ", this.state.isAlphabet);
+    console.log('Recipe List alphabet: ', props.location.recipeProps.alphabet);
+    console.log('Recipe List isAlphabet: ', this.state.isAlphabet);
 
-    // console.log("recipe: ", this.state.recipe);
-    // console.log("ingredient: ", this.state.ingredient);
-    // console.log("category: ", this.state.category);
-    // console.log("cuisine: ", this.state.cuisine);
-    // console.log("alphabet: ", this.state.alphabet);
+    // console.log('recipe: ', this.state.recipe);
+    // console.log('ingredient: ', this.state.ingredient);
+    // console.log('category: ', this.state.category);
+    // console.log('cuisine: ', this.state.cuisine);
+    // console.log('alphabet: ', this.state.alphabet);
   }
 
   async componentDidMount() {
-    console.log("recipeList componentDidMount");
+    console.log('recipeList componentDidMount');
     if (this.state.ingredient) {
       let list = await this.state.recipeService.getIngredient(this.state.ingredient);
       this.setState({
@@ -66,8 +66,8 @@ class RecipeList extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState) {
-    // console.log("component Updated! prevProps = " + prevProps.location.recipeProps.alphabet);
-    // console.log("component Updated! prevState = " + this.state.alphabet)
+    // console.log('component Updated! prevProps = ' + prevProps.location.recipeProps.alphabet);
+    // console.log('component Updated! prevState = ' + this.state.alphabet)
     if (prevProps.location.recipeProps.alphabet !== this.state.alphabet) {
       let listLetter = await this.state.recipeService.getFirstLetter(this.state.alphabet);
       this.setState({
@@ -78,8 +78,8 @@ class RecipeList extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    // console.log("props", props);
-    // console.log("state", state);
+    // console.log('props', props);
+    // console.log('state', state);
     if (state.alphabet !== props.location.recipeProps.alphabet) {
       return {
         alphabet: props.location.recipeProps.alphabet
@@ -102,12 +102,12 @@ class RecipeList extends Component {
     for(let i=65; i<91; i++) {
       result.push(
         <Link to={{
-          pathname: "/recipes",
+          pathname: '/recipes',
           recipeProps: {
             alphabet: String.fromCharCode(i),
             isAlphabet: true
         }}}>
-          <Button type="button" key={i} name="alphabet" onClick={this.onChange} value={String.fromCharCode(i)} className="letter" >
+          <Button type='button' key={i} name='alphabet' onClick={this.onChange} value={String.fromCharCode(i)} className='letter' >
             {String.fromCharCode(i)}
           </Button>
         </Link>
@@ -121,18 +121,18 @@ class RecipeList extends Component {
       <div>
         {
           this.state.isAlphabet ? 
-          <ButtonGroup size="lg" style={{ paddingTop: '2.4rem', marginLeft: '10.6rem' }}>
+          <ButtonGroup size='lg' style={{ marginTop: '2.5rem', marginLeft: '10rem' }}>
             {this.prepareAlphabets()}
           </ButtonGroup> : <div></div>
         }
         <div id='list-container'>
           { (this.state.ingredient || this.state.recipe || this.state.category || this.state.cuisine || this.state.alphabet) ?
-            <h3 style={{ marginLeft: '10px' }}>
+            <h3>
               {this.state.ingredient || this.state.recipe || this.state.category || this.state.cuisine || this.state.alphabet}
             </h3> 
             : <div></div>
           }
-          <Row style={{ marginTop: '60px', marginLeft: '10px' }}>
+          <Row style={{ marginTop: '4rem', marginLeft: '0rem' }}>
             {
               this.state.list ? this.state.list.map((recipeObj, index) => {
                 return (

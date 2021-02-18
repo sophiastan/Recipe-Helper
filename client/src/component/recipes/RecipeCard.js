@@ -11,7 +11,7 @@ import heartActive from '../../images/card-heart-active.png';
 class RecipeCard extends Component{
   constructor(props) {
     super();
-    // console.log("recipe: ", props.recipe);
+    // console.log('recipe: ', props.recipe);
 
     this.state = {
       inputIngredient: props.inputIngredient,
@@ -52,7 +52,7 @@ class RecipeCard extends Component{
       this.setState({
         isFavorited: false
       });
-      // this.props.deleteRecipe("52907");
+      // this.props.deleteRecipe('52907');
     }
     else {
       this.setState({
