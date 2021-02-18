@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Logo from "../images/logo.png";
+import Logo from '../images/logo.png';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -16,7 +16,7 @@ class Header extends Component {
     super();
 
     this.state = {
-      recipe: ""
+      recipe: ''
     }
   }
 
@@ -31,7 +31,7 @@ class Header extends Component {
 
   clearState = () => {
     this.setState({
-      recipe: ""
+      recipe: ''
     });
   }
 
@@ -42,17 +42,17 @@ class Header extends Component {
       // logged out
       case false:
         return [
-          <Nav className="ml-auto">
-            <Nav.Link href="/auth/google">Sign in with Google</Nav.Link>
+          <Nav className='ml-auto'>
+            <Nav.Link href='/auth/google'>Sign in with Google</Nav.Link>
           </Nav>
         ];
       // logged in
       default: 
         return [
-          <Nav className="ml-auto">
-            <NavDropdown title={ `Hello, ${this.props.auth.name}` } id="basic-nav-dropdown">
-              <NavDropdown.Item href="/favorites">Favorites</NavDropdown.Item>
-              <NavDropdown.Item href="/api/logout">Logout</NavDropdown.Item>
+          <Nav className='ml-auto'>
+            <NavDropdown title={ `Hello, ${this.props.auth.name}` } id='basic-nav-dropdown'>
+              <NavDropdown.Item href='/favorites'>Favorites</NavDropdown.Item>
+              <NavDropdown.Item href='/api/logout'>Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         ];
@@ -61,36 +61,36 @@ class Header extends Component {
 
   render() {
     return (
-      <Navbar collapseOnSelect expand="lg" style={{ marginLeft: "160px",marginRight: "160px" }}>
-        <Nav className="mr-auto">
-          <Menu disableAutoFocus customBurgerIcon={ <img src={iconToggle} alt="toggle-icon" /> }>
-            <p className="toggle-title">Search by</p>
-            <a href="/">Recipe</a>
-            <a href="/ingredient">Ingredient</a>
-            <p className="toggle-title">Filter by</p>
-            {/* <a href="/recipes">A-Z</a> */}
+      <Navbar collapseOnSelect expand='lg' style={{ marginLeft: '160px', marginRight: '160px' }}>
+        <Nav className='mr-auto'>
+          <Menu disableAutoFocus customBurgerIcon={ <img src={iconToggle} alt='toggle-icon' /> }>
+            <p className='toggle-title'>Search by</p>
+            <a href='/'>Recipe</a>
+            <a href='/ingredient'>Ingredient</a>
+            <p className='toggle-title'>Filter by</p>
             <Link to={{
               pathname: '/recipes',
               recipeProps: {
+                alphabet: 'A',
                 isAlphabet: true
             }}}>A-Z</Link>
-            <a href="/">Category</a>
-            <a href="/">Cuisine</a>
+            <a href='/'>Category</a>
+            <a href='/'>Cuisine</a>
           </Menu>
-          <Link to="/">
-            <Navbar.Brand><img src={Logo} className="brand-logo" alt="website logo"/></Navbar.Brand>
+          <Link to='/'>
+            <Navbar.Brand><img src={Logo} className='brand-logo' alt='website logo'/></Navbar.Brand>
           </Link>
         </Nav>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
-        <Navbar.Collapse aria-controls="responsive-navbar-nav">
-          <Form className="ml-auto" inline>
-            <FormControl type="text" placeholder="Find a recipe" onChange={this.onChange} name="recipe" className="mr-sm-2 search-header"></FormControl>
+        <Navbar.Toggle aria-controls='responsive-navbar-nav'/>
+        <Navbar.Collapse aria-controls='responsive-navbar-nav'>
+          <Form className='ml-auto' inline>
+            <FormControl type='text' placeholder='Find a recipe' onChange={this.onChange} name='recipe' className='mr-sm-2 search-header'></FormControl>
             <Link  to={{
-              pathname: "/recipes",
+              pathname: '/recipes',
               recipeProps: {
                 recipe: this.state.recipe
               }}}>
-              <img src={searchHeader} className="search-header-btn" alt="search" />
+              <img src={searchHeader} className='search-header-btn' alt='search' />
             </Link>
           </Form>
           {this.renderContent()}

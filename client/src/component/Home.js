@@ -3,7 +3,6 @@ import RecipeService from '../services/RecipeService';
 import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import search from '../images/search.png';
 
 
@@ -13,12 +12,7 @@ class Home extends Component {
 
     this.state = {
       recipeService: new RecipeService(),
-      ingredient: "",
-      recipe: "",
-      category: "",
-      cuisine: "",
-      alphabet: ""
-      // randomClicked: false
+      recipe: '',
     }
   }
 
@@ -31,50 +25,19 @@ class Home extends Component {
     });
   }
 
-  prepareAlphabets = () => {
-    let result = [];
-    for(let i=65; i<91; i++) {
-      result.push(
-        <Link to={{
-          pathname: "/recipes",
-          recipeProps: {
-            ingredient: this.state.ingredient,
-            recipe: this.state.recipe,
-            category: this.state.category,
-            cuisine: this.state.cuisine,
-            alphabet: String.fromCharCode(i)
-          }}}>
-          <Button type="button" key={i} name="alphabet" onClick={this.onChange} value={String.fromCharCode(i)} variant="outline-secondary" >
-            {String.fromCharCode(i)}
-          </Button>
-        </Link>
-      )
-    }
-    console.log(this.state.alphabet);
-    return result;
-  }
-
   render() {
     return (
       <Form>
-        {/* <ButtonGroup size="lg" style={{ paddingTop: "40px" }}>
-          {this.prepareAlphabets()}
-        </ButtonGroup> */}
-        {/* <Container> */}
         <Container style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Form.Group style={{ marginTop: '313px' }} controlId="formMeal">
+          <Form.Group style={{ marginTop: '313px' }} controlId='formMeal'>
             <Form.Label style={{ fontSize: '250%' }}>Search by Recipe</Form.Label>
             <Form.Control type='text' name='recipe' className='search-bar' onChange={this.onChange} placeholder='Find a recipe' />
             <Link to={{
-              pathname: "/recipes",
+              pathname: '/recipes',
               recipeProps: {
-                ingredient: this.state.ingredient,
-                recipe: this.state.recipe,
-                category: this.state.category,
-                cuisine: this.state.cuisine,
-                alphabet: this.state.alphabet
+                recipe: this.state.recipe
               }}}>
-              <img src={search} className="search-btn" alt="search-btn" />
+              <img src={search} className='search-btn' alt='search-btn' />
             </Link>
           </Form.Group>
         </Container>
@@ -87,26 +50,7 @@ class Home extends Component {
             placeholder="onions"
             name="ingredient"
             onChange={this.onChange}
-          />
-          <input 
-            type="text" 
-            className="ingredient-input"
-            placeholder="celery"
-            name="ingredient"
-            onChange={this.onChange}
-          />
-          <input 
-            type="text" 
-            className="ingredient-input"
-            placeholder="carrot"
-            name="ingredient"
-            onChange={this.onChange}
-          />
-          <div id="newElementId"></div>
-          <button 
-            type="button" 
-            className="add">+
-          </button>
+          />                 
         </div>
         <Link to={{
           pathname: "/recipes",
