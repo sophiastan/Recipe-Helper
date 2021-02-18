@@ -5,8 +5,10 @@ import * as actions from '../actions';
 
 import Header from './Header';
 import Home from './Home';
-import RecipeList from './RecipeList';
-import RecipeDetails from './RecipeDetails';
+import RecipeList from './recipes/RecipeList';
+import RecipeDetails from './recipes/RecipeDetails';
+import Favorites from './recipes/Favorites';
+import Ingredient from './recipes/Ingredient';
 
 class App extends Component {
   componentDidMount() {
@@ -19,7 +21,10 @@ class App extends Component {
           <Header />
           <Route exact path="/" component={Home} />
           <Route exact path="/recipes" component={RecipeList} />
-          <Route exact path="/recipes/details" component={RecipeDetails} />
+          {/* <Route exact path={["/recipes/:recipeID", "/random"]} component={RecipeDetails} /> */}
+          <Route exact path="/recipes/:recipeID" component={RecipeDetails} />
+          <Route exact path="/favorites" component={Favorites} />
+          <Route exact path="/ingredient" component={Ingredient} />
         </div>
       </BrowserRouter>
     )

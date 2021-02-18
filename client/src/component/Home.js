@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import RecipeService from '../services/RecipeService';
 import { Link } from 'react-router-dom';
-import Generate from '../images/generate-button-circle.png';
-import Text from '../images/text-delicious-healthy-eating.png';
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
+import search from '../images/search.png';
 
 
 class Home extends Component {
@@ -11,97 +12,85 @@ class Home extends Component {
 
     this.state = {
       recipeService: new RecipeService(),
-      ingredients: "",
-      recipe: "",
-      addCount: 0
+      recipe: '',
     }
   }
 
-  onIngChange = (event) => {
+  onChange = (event) => {
+    const name = event.target.name;
     const val = event.target.value;
 
     this.setState({
-      ingredients: this.state.ingredients + "," + val
+      [name]: val
     });
-  }
-
-  onRecipeChange = (event) => {
-    const val = event.target.value;
-
-    this.setState({
-      recipe: val
-    });
-  }
-
-  handleAdd = () => {
-    if (this.state.addCount < 3) {
-      const newTextInputBox = document.createElement('input');
-      newTextInputBox.className = "ingredient-input";
-      newTextInputBox.onblur = this.onIngChange;
-      document.getElementById("newElementId").appendChild(newTextInputBox);
-    }
-
-    this.setState({
-      addCount: this.state.addCount + 1
-    })
   }
 
   render() {
     return (
-      <div>
-        <form>
-          <div className="ingredient">
-            <p className="title">ingredient</p>
-            <p className="description">What ingredients are you going to use?</p>
-            <input 
-              type="text" 
-              className="ingredient-input"
-              placeholder="onions"
-              value="onions"
-              onBlur={this.onIngChange}
-            />
-            <input 
-              type="text" 
-              className="ingredient-input"
-              placeholder="celery"
-              value="celery"
-              onBlur={this.onIngChange}
-            />
-            <input 
-              type="text" 
-              className="ingredient-input"
-              placeholder="carrot"
-              value="carrot"
-              onBlur={this.onIngChange}
-            />
-            <div id="newElementId"></div>
-            <button 
-              type="button" 
-              className="add"
-              onClick={() => this.handleAdd()}>+
-            </button>
-          </div>
-          <Link to={{
-            pathname: "/recipes",
-            recipeProps: {
-              ingredients: this.state.ingredients.slice(1).split(','),
-              recipe: this.state.recipe
-            }}}>
-            <img src={Generate} className="generate" alt="generate button"/>
-          </Link>
-          <img src={Text} className="text-delicious" alt="text"/>
-          <p className="with-text">With randomly generated recipes using your ingredients</p>
-          <div className="recipe">
-            <p className="title">recipe</p>
-            <p className="description">input general recipe name</p>
-            <input 
-              type="text" 
-              className="recipe-input"
-              onChange={this.onRecipeChange}
-            />
-          </div>
-        </form>
-      </div>
+      <Form>
+        <Container style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Form.Group style={{ marginTop: '313px' }} controlId='formMeal'>
+            <Form.Label style={{ fontSize: '250%' }}>Search by Recipe</Form.Label>
+            <Form.Control type='text' name='recipe' className='search-bar' onChange={this.onChange} placeholder='Find a recipe' />
+            <Link to={{
+              pathname: '/recipes',
+              recipeProps: {
+                recipe: this.state.recipe
+              }}}>
+              <img src={search} className='search-btn' alt='search-btn' />
+            </Link>
+          </Form.Group>
+        </Container>
+        {/* <div className="ingredient">
+          <p className="title">ingredient</p>
+          <p className="description">What ingredient are you going to use?</p>
+          <input 
+            type="text" 
+            className="ingredient-input"
+            placeholder="onions"
+            name="ingredient"
+            onChange={this.onChange}
+          />                 
+        </div>
+        <Link to={{
+          pathname: "/recipes",
+          recipeProps: {
+            ingredient: this.state.ingredient,
+            recipe: this.state.recipe,
+            category: this.state.category,
+            cuisine: this.state.cuisine,
+            alphabet: this.state.alphabet
+          }}}>
+          <img src={Generate} className="generate" alt="generate button"/>
+        </Link>
+        <img src={Text} className="text-delicious" alt="text"/>
+        <p className="with-text">With randomly generated recipes using your ingredients</p>
+        <div className="recipe">
+          <p className="title">recipe</p>
+          <p className="description">input general recipe name</p>
+          <input 
+            type="text" 
+            className="recipe-input"
+            name="recipe"
+            onChange={this.onChange}
+          />
+        </div>
+        <div className="recipe">
+          <p className="title">category</p>
+          <p className="description">input a category</p>
+          <input 
+            type="text" 
+            className="recipe-input"
+            name="category"
+            onChange={this.onChange}
+          />
+        </div>
+        <Form.Group controlId="formCuisine">
+          <Form.Label>cuisine</Form.Label>
+          <Form.Text className="text-muted">input a cuisine </Form.Text>
+          <Form.Control type="text" name="cuisine" onChange={this.onChange} />
+        </Form.Group> */}
+      </Form>
     );
   }
 }
