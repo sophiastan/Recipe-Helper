@@ -1,6 +1,6 @@
 body {
   background-color: #f7f6f2;
-  font-family: 'Apple SD Gothic Neo', Verdana, Tahoma, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 
@@ -89,6 +89,16 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 
 /* HOME */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.home-logo {
+  width: 198px;
+  height: 174px;
+  margin-top: 105px;
+}
 .search-btn {
   width: 56px;
   height: 56px;
@@ -104,6 +114,43 @@ Note: Beware of modifying this element as it can break the animations - you shou
   border: none;
   background-color: #eae9e4;
 }
+.random-info {
+  margin-top: 184px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.random-info > div > p {
+  font-size: .80em;
+  color: #606060;
+}
+.random-box {
+  width: 378px;
+  height: 140px;
+  padding: 8px 20px 8px 8px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+}
+.random-box > div {
+  margin-left: 16px;
+}
+.random-box > div > p {
+  color: #fc621b;
+  font-size: .80em;
+  font-weight: bold;
+}
+.random-box > div > h6 {
+  font-weight: bold;
+}
+
+.ing-logo {
+  width: 334px;
+  height: 100px;
+  margin-top: 184px;
+}
 
 
 
@@ -118,6 +165,9 @@ Note: Beware of modifying this element as it can break the animations - you shou
   color: #000000;
   border: none;
   margin-right: 0.5rem;
+}
+.method-info {
+  color: #fc621b;
 }
 .btn:hover, .btn:focus, .btn:active, .btn.active, .open>.dropdown-toggle.btn {
   background-color: #fc621b;
@@ -137,12 +187,18 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* RECIPE DETAILS */
 #details-container {
-  /* width: 100%; */
   max-height: 643px;
   margin: 4rem 10rem 0rem;
 }
 #details-content {
   margin-top: 5rem;
+  display: flex;
+  justify-content: space-between;
+}
+.details-img {
+  border-radius: 0.5rem;
+  width: 474px;
+  height: 474px;
 }
 #icon-list {
   margin-top: 0.5rem;
@@ -154,13 +210,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
   margin-right: 0.5rem;
 }
 #instructions {
-  float: right;
-  width: 515px;
+  width: 32%;
 }
 #ingredients {
-  float: right;
-  width: 515px;
-  margin-left: 100px;
+  width: 32%;
 }
 li {
   list-style: none;

@@ -18,7 +18,14 @@ class RecipeList extends Component {
       cuisine: props.location.recipeProps.cuisine ? props.location.recipeProps.cuisine : '',
       isAlphabet: props.location.recipeProps.isAlphabet ? props.location.recipeProps.isAlphabet : false,
       alphabet: props.location.recipeProps.alphabet ? props.location.recipeProps.alphabet : '',
-      list: []
+      list: [],
+
+      // Boolean for search by / filter by
+      isRecipe: false,
+      isIngredient: false,
+      isAZ: false,
+      isCategory: false,
+      isCuisine: false
     }
     console.log('Recipe List alphabet: ', props.location.recipeProps.alphabet);
     console.log('Recipe List isAlphabet: ', this.state.isAlphabet);
@@ -32,35 +39,39 @@ class RecipeList extends Component {
 
   async componentDidMount() {
     console.log('recipeList componentDidMount');
-    if (this.state.ingredient) {
-      let list = await this.state.recipeService.getIngredient(this.state.ingredient);
-      this.setState({
-        list: list
-      });
-    }
     if (this.state.recipe) {
       let listRecipe = await this.state.recipeService.getRecipe(this.state.recipe);
       this.setState({
-        list: listRecipe
+        list: listRecipe,
+        isRecipe: true
+      });
+    }
+    if (this.state.ingredient) {
+      let list = await this.state.recipeService.getIngredient(this.state.ingredient);
+      this.setState({
+        list: list,
+        isIngredient: true
       });
     }
     if (this.state.category) {
       let listCategory = await this.state.recipeService.getCategory(this.state.category);
       this.setState({
-        list: listCategory
+        list: listCategory,
+        isCategory: true
       });
     }
     if (this.state.cuisine) {
       let listCuisine = await this.state.recipeService.getCuisine(this.state.cuisine);
       this.setState({
-        list: listCuisine
+        list: listCuisine,
+        isCuisine: true
       });
     }
-    // if (this.state.alphabet && !this.state.recipe && !this.state.ingredient) {
       if (this.state.alphabet) {
       let listLetter = await this.state.recipeService.getFirstLetter(this.state.alphabet);
       this.setState({
-        list: listLetter
+        list: listLetter,
+        isAZ: true
       })
     }
   }
@@ -126,6 +137,11 @@ class RecipeList extends Component {
           </ButtonGroup> : <div></div>
         }
         <div id='list-container'>
+          { this.state.isRecipe ? <p className='method-info'>Search by Recipe</p> : <div></div>}
+          { this.state.isIngredient ? <p className='method-info'>Search by Ingredient</p> : <div></div>}
+          { this.state.isAZ ? <p className='method-info'>Filter by A-Z</p> : <div></div>}
+          { this.state.isCategory ? <p className='method-info'>Filter by Category</p> : <div></div>}
+          { this.state.isCuisine ? <p className='method-info'>Filter by Cuisine</p> : <div></div>}
           { (this.state.ingredient || this.state.recipe || this.state.category || this.state.cuisine || this.state.alphabet) ?
             <h3>
               {this.state.ingredient || this.state.recipe || this.state.category || this.state.cuisine || this.state.alphabet}
@@ -145,7 +161,7 @@ class RecipeList extends Component {
                     inputCuisine={this.state.cuisine}
                     inputAlphabet={this.state.alphabet}
                   />);
-              }) : <div></div>
+              }) : <h3>No results found</h3>
             }
           </Row>
         </div>
